@@ -15,6 +15,7 @@ namespace Arcade {
             Core(const std::string &startingGraphicLib);
             ~Core();
             void run();
+
         private:
             void loadLibraries();
             void loadGame(const std::string &gameName);
@@ -23,6 +24,7 @@ namespace Arcade {
             void switchToNextGraphicalLib();
             void restartGame();
             void gobackToMenu();
+
         private:
             // std::vector<std::unique_ptr< interface en commun de jeu (IGAME) >> _games;
     };
