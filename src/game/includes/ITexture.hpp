@@ -10,7 +10,7 @@
 class ITexture {
     public:
         virtual ~ITexture() = default;
-        virtual ITexture getTexture() = 0;
+        virtual ITexture &getTexture() = 0;
         virtual void setTexture() = 0;
 
     protected:
