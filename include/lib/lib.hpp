@@ -8,3 +8,6 @@
 #pragma once
 
 #include <iostream>
+#include <string>
+#include <sys/stat.h>
+#include <dlfcn.h>
