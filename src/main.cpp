@@ -38,9 +38,9 @@ int main(int argc, char **argv)
     }
     std::string path = argv[1];
     if (is_file(path) && is_dynamic_library(path))
-        std::cout << "Chemin valide : " << path << "le fichier choisi n'est pas pris en compte, le fichier a été écrit en dur dans le code .. à changer"  << std::endl;
+        std::cout << "SUCCES Chemin valide : " << path << "le fichier choisi n'est pas pris en compte, le fichier a été écrit en dur dans le code .. à changer"  << std::endl;
     else {
-        std::cout << "Chemin invalide ou ne pointant pas vers une librairie partage : " << path << std::endl;
+        std::cout << "KO Chemin invalide ou ne pointant pas vers une librairie partage : " << path << std::endl;
         return 84;
     }
     return 0;
