@@ -7,9 +7,7 @@
 
 NAME =	arcade
 
-SRC =	Src/main.cpp				\
-		Src/IDisplayModule.cpp		\
-		Src/IGame.cpp				\
+SRC =	src/main.cpp				\
 
 OBJ	=	$(SRC:.cpp=.o)
 
