@@ -3,3 +3,4 @@
 *.o
 arcade.exe
 arcade
+sharedtest.so

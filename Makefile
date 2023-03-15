@@ -7,38 +7,37 @@
 
 NAME =	arcade
 
+NAME_SHARED_LIB_TEST = libsharedtest.so
+
 SRC =	src/main.cpp				\
 
-LIB = -Wall -fPIC -shared
+SRC_SHARED_LIB_TEST =	test.cpp
 
-LIB_NAME = lib_arcade_ncurses.so
+OBJ =	$(SRC:.cpp=.o)
 
-OBJ	=	$(SRC:.cpp=.o)
+OBJ_SHARED_LIB_TEST =	$(SRC_SHARED_LIB_TEST:.cpp=.o)
 
-LIB_SRC = src/main.cpp
+FLAGS_SHARED_LIB = -Wall -fPIC -shared
 
-LIB_OBJ = $(LIB_SRC:.cpp=.o)
+all: $(NAME)
 
-all: $(NAME) $(LIB_NAME)
+sharedtest: $(NAME_SHARED_LIB_TEST)
 
-$(NAME) : $(OBJ)
-	g++ -o $(NAME) $(OBJ) -ldl -lncurses
+$(NAME): $(OBJ)
+	g++ -o $(NAME) $(OBJ) -ldl
 
-$(LIB_NAME) : $(LIB_OBJ)
-	g++ $(LIB) -o $(LIB_NAME) $(LIB_OBJ)
-
-%.o: %.cpp
-	g++ $(LIB) -c $< -o $@
+$(NAME_SHARED_LIB_TEST): $(OBJ_SHARED_LIB_TEST)
+	g++ $(FLAGS_SHARED_LIB) -o $(NAME_SHARED_LIB_TEST) $(OBJ_SHARED_LIB_TEST)
 
 clean:
 	rm -f $(OBJ)
 	rm -f $(LIB_OBJ)
 	rm -f *.o
 	rm -f *~
+	rm -f *.so
 
 fclean: clean
 	rm -f $(NAME)
-	rm -f $(LIB_NAME)
 
 re: fclean all
 
