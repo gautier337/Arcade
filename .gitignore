@@ -1,3 +1,5 @@
 .vscode
 *.so
 *.o
+arcade.exe
+arcade

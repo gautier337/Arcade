@@ -14,7 +14,7 @@ OBJ	=	$(SRC:.cpp=.o)
 all: $(NAME)
 
 $(NAME) : $(OBJ)
-	g++ -o $(NAME) $(OBJ) -Wall -Wextra -Werror -std=c++2a -pthread
+	g++ -o $(NAME) $(OBJ) -Wall -Wextra -Werror
 
 clean:
 	rm -f $(OBJ)
