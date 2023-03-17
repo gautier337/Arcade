@@ -1,31 +1,34 @@
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <string>
-#include <ncurses.h>
+/*
+** EPITECH PROJECT, 2023
+** Arcade
+** File description:
+** snake
+*/
+
+#include "snake.hpp"
+
+std::pair<int, int> find_snake_position(const std::vector<std::string> &map)
+{
+        if (map.empty())
+            return std::make_pair(-1, -1);
+        for (size_t i = 0; i != map.size(); i++) 
+            for (size_t j = 0; j != map[i].length(); j++)
+                if (map[i][j] == 'S')
+                    return std::make_pair(i, j);
+        return std::make_pair(-1, -1);
+}
 
 std::vector<std::string> load_2d_arr_from_file(const std::string &filepath)
 {
     std::ifstream file(filepath);
     if (!file)
         return {};
-    std::vector<std::string> array;
+    std::vector<std::string> array = {};
     std::string line = "";
 
     while (std::getline(file, line))
         array.push_back(line);
     return array;
-}
-
-std::pair<int, int> find_snake_position(const std::vector<std::string> &map)
-{
-    if (map.empty())
-        return std::make_pair(-1, -1);
-    for (size_t i = 0; i != map.size(); i++) 
-        for (size_t j = 0; j != map[i].length(); j++)
-            if (map[i][j] == 'S')
-                return std::make_pair(i + 1, j + 1);
-    return std::make_pair(-1, -1);
 }
 
 void display_map(const std::vector<std::string> &map)
@@ -37,8 +40,8 @@ void display_map(const std::vector<std::string> &map)
     int color_pair_number = 0;
     char display_char = ' ';
 
-    for (size_t i = 0; i < map.size(); i++) {
-        for (size_t j = 0; j < map[i].length(); j++) {
+    for (size_t i = 0; i != map.size(); i++) {
+        for (size_t j = 0; j != map[i].length(); j++) {
             switch (map[i][j]) {
                 case '#':
                     color_pair_number = 1;
@@ -64,7 +67,7 @@ void display_map(const std::vector<std::string> &map)
     refresh();
 }
 
-void init_game(const std::vector<std::string> &map)
+void init_game(const std::vector<std::string> &original_map)
 {
     int input = 0;
 
@@ -79,11 +82,16 @@ void init_game(const std::vector<std::string> &map)
         init_pair(3, COLOR_RED, COLOR_RED);
         init_pair(4, COLOR_YELLOW, COLOR_YELLOW);
     }
+    Snake snake(original_map);
     while (1) {
+        std::vector<std::string> map = original_map;
+        snake.update_map(map);
         display_map(map);
         input = getch();
         if (input == 'q')
             break;
+        snake.set_direction(input);
+        snake.move();
     }
     endwin();
 }
