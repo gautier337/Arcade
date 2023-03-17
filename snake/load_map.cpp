@@ -21,13 +21,10 @@ std::pair<int, int> find_snake_position(const std::vector<std::string> &map)
 {
     if (map.empty())
         return std::make_pair(-1, -1);
-    for (size_t i = 0; i != map.size(); i++) {
-        for (size_t j = 0; j != map[i].length(); j++) {
-            if (map[i][j] == 'S') {
+    for (size_t i = 0; i != map.size(); i++) 
+        for (size_t j = 0; j != map[i].length(); j++)
+            if (map[i][j] == 'S')
                 return std::make_pair(i + 1, j + 1);
-            }
-        }
-    }
     return std::make_pair(-1, -1);
 }
 
@@ -64,7 +61,6 @@ int main(int argc, char **argv)
     if (argc != 2)
         return 84;
     std::vector<std::string> map = load_2d_arr_from_file(argv[1]);
-
     init_game(map);
     return 0;
 }
