@@ -70,6 +70,8 @@ void display_map(const std::vector<std::string> &map)
 void init_game(const std::vector<std::string> &original_map)
 {
     int input = 0;
+    Snake snake(original_map);
+    std::vector<std::string> map = original_map;
 
     initscr();
     raw();
@@ -82,25 +84,26 @@ void init_game(const std::vector<std::string> &original_map)
         init_pair(3, COLOR_RED, COLOR_RED);
         init_pair(4, COLOR_YELLOW, COLOR_YELLOW);
     }
-    Snake snake(original_map);
     while (1) {
-        std::vector<std::string> map = original_map;
         snake.update_map(map);
         display_map(map);
         input = getch();
         if (input == 'q')
             break;
         snake.set_direction(input);
-        snake.move();
+        snake.move(map);
     }
     endwin();
 }
 
 int main(int argc, char **argv)
 {
-    if (argc != 2)
+    if (argc != 2) {
+        std::cout << "Usage: ./snake [map]" << std::endl;
         return 84;
+    }
     std::vector<std::string> map = load_2d_arr_from_file(argv[1]);
     init_game(map);
+    std::cout << "Snake position " << find_snake_position(map).first << " " << find_snake_position(map).second << std::endl;
     return 0;
 }

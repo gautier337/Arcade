@@ -22,7 +22,7 @@ void init_game(const std::vector<std::string> &original_map);
 
 class Snake {
 public:
-    Snake(const std::vector<std::string>& map) {
+    Snake(const std::vector<std::string> &map) {
         position = find_snake_position(map);
         prev_position = position;
         if (position == std::make_pair(-1, -1)) {
@@ -31,10 +31,15 @@ public:
         direction = std::make_pair(0, 1);
     }
 
-    void move() {
+    void move(const std::vector<std::string> &map) {
         prev_position = position;
-        position.first += direction.first;
-        position.second += direction.second;
+        int new_x = position.first + direction.first;
+        int new_y = position.second + direction.second;
+
+        if (map[new_x][new_y] != '#') {
+            position.first = new_x;
+            position.second = new_y;
+        }
     }
 
     void set_direction(int new_direction) {
@@ -57,13 +62,8 @@ public:
     }
 
     void update_map(std::vector<std::string> &map) {
-        // Update the previous position with a space
         map[prev_position.first][prev_position.second] = ' ';
-
-        // Update the current position of the snake
         map[position.first][position.second] = 'S';
-
-        // Update the previous position
         prev_position = position;
     }
 
