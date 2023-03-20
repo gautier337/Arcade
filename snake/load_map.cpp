@@ -103,6 +103,10 @@ int main(int argc, char **argv)
         return 84;
     }
     std::vector<std::string> map = load_2d_arr_from_file(argv[1]);
+    if (map.empty()) {
+        std::cout << "Error: map file is empty" << std::endl;
+        return 84;
+    }
     init_game(map);
     std::cout << "Snake position " << find_snake_position(map).first << " " << find_snake_position(map).second << std::endl;
     return 0;
