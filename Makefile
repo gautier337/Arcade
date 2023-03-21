@@ -5,40 +5,29 @@
 ## arcade
 ##
 
-NAME =	arcade
+all: core games graphics
 
-NAME_SHARED_LIB_TEST = libsharedtest.so
+core:
+	$(MAKE) -C core
 
-SRC =	src/main.cpp				\
+games:
+	$(MAKE) -C games
 
-SRC_SHARED_LIB_TEST =	test.cpp
-
-OBJ =	$(SRC:.cpp=.o)
-
-OBJ_SHARED_LIB_TEST =	$(SRC_SHARED_LIB_TEST:.cpp=.o)
-
-FLAGS_SHARED_LIB = -Wall -fPIC -shared
-
-all: $(NAME)
-
-sharedtest: $(NAME_SHARED_LIB_TEST)
-
-$(NAME): $(OBJ)
-	g++ -o $(NAME) $(OBJ) -ldl
-
-$(NAME_SHARED_LIB_TEST): $(OBJ_SHARED_LIB_TEST)
-	g++ $(FLAGS_SHARED_LIB) -o $(NAME_SHARED_LIB_TEST) $(OBJ_SHARED_LIB_TEST)
+graphics:
+	$(MAKE) -C graphics
 
 clean:
-	rm -f $(OBJ)
-	rm -f $(LIB_OBJ)
-	rm -f *.o
-	rm -f *~
-	rm -f *.so
+	$(MAKE) clean -C core
+	$(MAKE) clean -C games
+	$(MAKE) clean -C graphics
 
-fclean: clean
-	rm -f $(NAME)
+fclean:
+	$(MAKE) fclean -C core
+	$(MAKE) fclean -C games
+	$(MAKE) fclean -C graphics
+	rm -f arcade
+	rm -f lib/*.so
 
 re: fclean all
 
-.PHONY:	all clean fclean re
+.PHONY: all core games graphics clean fclean re
