@@ -7,7 +7,6 @@
 
 #pragma once
 
-#include "IDisplayModule.hpp"
 #include "ITexture.hpp"
 #include "IIntRect.hpp"
 #include "IVector2f.hpp"

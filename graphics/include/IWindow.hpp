@@ -19,7 +19,7 @@ class IWindow {
             int width,
             int height
         ) = 0;
-        // virtual IEvent getEvents() = 0;
+
         virtual std::string getTitle() = 0;
         virtual void setTitle(std::string const &title) = 0;
         virtual bool isOpen() = 0;
