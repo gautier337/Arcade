@@ -64,5 +64,7 @@ int main(int argc, char* argv[]) {
     displayModule->destroy();
     delete displayModule;
 
+    delete gameModule;
+
     return 0;
 }
