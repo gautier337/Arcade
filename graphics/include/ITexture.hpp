@@ -9,11 +9,13 @@
 
 #include <string>
 
-class ITexture
-{
-    public:
-        virtual ~ITexture() = default;
-        virtual void create(const std::string& path) = 0;
-        virtual void update(const std::string& path) = 0;
-        virtual void destroy() = 0;
+namespace Display {
+    class ITexture {
+        public:
+            virtual ~ITexture() = default;
+            virtual void create(const std::string &path) = 0;
+            virtual void update(const std::string &path) = 0;
+            virtual void destroy() = 0;
+    };
+    // extern "C" std::unique_ptr<ITexture> createTexture();
 };

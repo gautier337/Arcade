@@ -16,12 +16,13 @@
 #include "DynamicLibraryHandler.hpp"
 
 int main(int argc, char* argv[]) {
-    if (argc != 2) {
-        std::cerr << "Usage: " << argv[0] << " <path_to_graphics_library>" << std::endl;
+    if (argc != 3) {
+        std::cerr << "Usage: " << argv[0] << " <path_to_graphics_library> <path_to_games_library>" << std::endl;
         return 84;
     }
 
     std::string graphicsLibraryPath = argv[1];
+    std::string gamesLibraryPath = argv[2];
 
     DynamicLibraryHandler graphicsLibraryHandler;
     if (!graphicsLibraryHandler.loadLibrary(graphicsLibraryPath))
@@ -36,15 +37,28 @@ int main(int argc, char* argv[]) {
     IDisplayModule *displayModule = createDisplayModule();
     displayModule->create();
 
-    // Boucle principale
-    bool running = true;
-    while (running) {
+    DynamicLibraryHandler gameLibraryHandler;
+    if (!gameLibraryHandler.loadLibrary(gamesLibraryPath))
+        return 84;
+    
+    typedef IGameModule* (*CreateGameModuleFunction)();
+    CreateGameModuleFunction createGameModule = reinterpret_cast<CreateGameModuleFunction>(gameLibraryHandler.getSymbol("create"));
 
-        displayModule->clear();
-        // Ici, vous ajouterez plus tard les appels pour mettre à jour et dessiner le module de jeu.
-        displayModule->draw(nullptr);
-        displayModule->update();
-    }
+    if (!createGameModule)
+        return 84;
+
+    IGameModule *gameModule = createGameModule();
+    gameModule->init();
+
+    // Boucle principale
+    // bool running = true;
+    // while (running) {
+
+    //     displayModule->clear();
+    //     // Ici, vous ajouterez plus tard les appels pour mettre à jour et dessiner le module de jeu.
+    //     displayModule->draw(nullptr);
+    //     displayModule->update();
+    // }
 
     // Nettoyer
     displayModule->destroy();

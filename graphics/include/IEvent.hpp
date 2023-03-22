@@ -7,11 +7,8 @@
 
 #pragma once
 
-#ifndef IEVENT_HPP_
-#define IEVENT_HPP_
-
-class IEvent {
-    enum Type {
+namespace Display {
+    enum KeyType {
         Unknown = -1,
         A = 0, B, C,
         D, E, F, G,
@@ -42,10 +39,12 @@ class IEvent {
         BackSpace, BackSlash, SemiColon,
         Return
     };
-    public:
-        virtual ~IEvent() = default;
-        virtual Type getType() = 0;
-        virtual void setType(Type type) = 0;
-};
 
-#endif /* !IEVENT_HPP_ */
+    class IEvent {
+        public:
+            virtual ~IEvent() = default;
+            virtual Display::KeyType getType() = 0;
+            virtual void setType(Display::KeyType type) = 0;
+    };
+    // extern "C" std::unique_ptr<IEvent> createEvent();
+};

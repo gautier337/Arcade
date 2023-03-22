@@ -8,14 +8,16 @@
 #ifndef IVECTOR2F_HPP_
 #define IVECTOR2F_HPP_
 
-class IVector2f {
-    public:
-        virtual ~IVector2f() = default;
-        virtual int getX() = 0;
-        virtual void setX(int x) = 0;
-        virtual int getY() = 0;
-        virtual void setY(int y) = 0;
-        virtual void set(int x, int y) = 0;
+namespace Display {
+    class IVector2f {
+        public:
+            virtual ~IVector2f() = default;
+            virtual void create(float x, float y) = 0;
+            virtual float getX() = 0;
+            virtual void setX(float x) = 0;
+            virtual float getY() = 0;
+            virtual void setY(float y) = 0;
+    };
+    // extern "C" std::unique_ptr<IVector2f> createVector2f();
 };
-
 #endif /* !IVECTOR2F_HPP_ */

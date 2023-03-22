@@ -16,5 +16,5 @@ class IDisplayModule {
         virtual void update() = 0;
         virtual void destroy() = 0;
         virtual void clear() = 0;
-        virtual void draw(ISprite* sprite) = 0;
+        virtual void draw(Display::ISprite* sprite) = 0;
 };

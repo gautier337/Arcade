@@ -21,16 +21,16 @@ NcursesDisplay::~NcursesDisplay()
 void NcursesDisplay::create()
 {
     std::cout << "NcursesDisplay create function called" << std::endl;
-    mainwin = initscr();
-    if (mainwin == nullptr) {
-        fprintf(stderr, "Error: Failed to initialize ncurses screen.\n");
-        exit(84);
-    }
-    raw();
-    keypad(mainwin, TRUE);
-    noecho();
-    curs_set(0);
-    timeout(0);
+    // mainwin = initscr();
+    // if (mainwin == nullptr) {
+    //     fprintf(stderr, "Error: Failed to initialize ncurses screen.\n");
+    //     exit(84);
+    // }
+    // raw();
+    // keypad(mainwin, TRUE);
+    // noecho();
+    // curs_set(0);
+    // timeout(0);
 }
 
 void NcursesDisplay::update()
