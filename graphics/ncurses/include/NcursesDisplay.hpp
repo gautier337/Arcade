@@ -5,15 +5,14 @@
 ** NcursesDisplay
 */
 
-#ifndef NCURSESDISPLAY_HPP_
-#define NCURSESDISPLAY_HPP_
-
 #pragma once
 
 #include <ncurses.h>
 #include <string>
-#include "../include/IDisplayModule.hpp"
+#include "../../include/IDisplayModule.hpp"
+#include "../../include/ISprite.hpp"
 
+namespace Display {
 class NcursesDisplay : public IDisplayModule
 {
     public:
@@ -28,6 +27,5 @@ class NcursesDisplay : public IDisplayModule
 
     private:
         WINDOW *mainwin;
-};
-
-#endif /* !NCURSESDISPLAY_HPP_ */
+    };
+}

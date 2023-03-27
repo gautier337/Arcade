@@ -49,7 +49,7 @@ void NcursesDisplay::clear()
     ::clear(); // Utiliser l'opérateur de résolution de portée pour éviter la confusion avec la fonction membre clear()
 }
 
-void NcursesDisplay::draw(ISprite* sprite)
+void NcursesDisplay::draw(ISprite *sprite)
 {
     // Récupérer la position et les dimensions du sprite
     // int y = sprite->getPosition().y;

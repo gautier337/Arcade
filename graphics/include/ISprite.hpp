@@ -10,6 +10,7 @@
 #include "ITexture.hpp"
 #include "IIntRect.hpp"
 #include "IVector2f.hpp"
+#include <memory>
 
 namespace Display {
     class ISprite {
