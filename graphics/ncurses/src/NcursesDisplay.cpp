@@ -8,17 +8,17 @@
 #include "../include/NcursesDisplay.hpp"
 #include <iostream>
 
-NcursesDisplay::NcursesDisplay()
+Display::NcursesDisplay::NcursesDisplay()
 {
     std::cout << "NcursesDisplay constructor called" << std::endl;
 }
 
-NcursesDisplay::~NcursesDisplay()
+Display::NcursesDisplay::~NcursesDisplay()
 {
     destroy();
 }
 
-void NcursesDisplay::create()
+void Display::NcursesDisplay::create()
 {
     std::cout << "NcursesDisplay create function called" << std::endl;
     // mainwin = initscr();
@@ -33,23 +33,23 @@ void NcursesDisplay::create()
     // timeout(0);
 }
 
-void NcursesDisplay::update()
+void Display::NcursesDisplay::update()
 {
     // int ch = getch();
 }
 
-void NcursesDisplay::destroy() {
+void Display::NcursesDisplay::destroy() {
     if (mainwin) {
         endwin();
     }
 }
 
-void NcursesDisplay::clear()
+void Display::NcursesDisplay::clear()
 {
     ::clear(); // Utiliser l'opérateur de résolution de portée pour éviter la confusion avec la fonction membre clear()
 }
 
-void NcursesDisplay::draw(ISprite *sprite)
+void Display::NcursesDisplay::draw(ISprite *sprite)
 {
     // Récupérer la position et les dimensions du sprite
     // int y = sprite->getPosition().y;
@@ -63,19 +63,20 @@ void NcursesDisplay::draw(ISprite *sprite)
     //         mvwaddch(mainwin, y+i, x+j, sprite->getPixel(j, i));
     //     }
     // }
+    sprite = sprite;
     refresh();
 }
 
 extern "C"
 {
-    IDisplayModule *create() {
-        return new NcursesDisplay();
-    }
+    Display::IDisplayModule *create() {
+        return new Display::NcursesDisplay();
+    };
 }
 
 extern "C"
 {
-    void destroy(IDisplayModule *displayModule) {
+    void destroy(Display::IDisplayModule *displayModule) {
         delete displayModule;
-    }
+    };
 }

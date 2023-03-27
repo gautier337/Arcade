@@ -28,13 +28,13 @@ int main(int argc, char* argv[]) {
     if (!graphicsLibraryHandler.loadLibrary(graphicsLibraryPath))
         return 84;
 
-    typedef IDisplayModule* (*CreateDisplayModuleFunction)();
+    typedef Display::IDisplayModule* (*CreateDisplayModuleFunction)();
     CreateDisplayModuleFunction createDisplayModule = reinterpret_cast<CreateDisplayModuleFunction>(graphicsLibraryHandler.getSymbol("create"));
 
     if (!createDisplayModule)
         return 84;
 
-    IDisplayModule *displayModule = createDisplayModule();
+    Display::IDisplayModule *displayModule = createDisplayModule();
     displayModule->create();
 
     DynamicLibraryHandler gameLibraryHandler;
