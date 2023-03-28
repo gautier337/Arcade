@@ -8,12 +8,15 @@
 all: core games graphics
 
 core:
+	mkdir -p lib
 	$(MAKE) -C core
 
 games:
+	mkdir -p lib
 	$(MAKE) -C games
 
 graphics:
+	mkdir -p lib
 	$(MAKE) -C graphics
 
 clean:
