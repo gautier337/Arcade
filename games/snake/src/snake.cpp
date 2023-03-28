@@ -18,19 +18,6 @@ Snake::~Snake()
     std::cout << "Snake game destroyed" << std::endl;
 }
 
-std::vector<std::string> load_2d_arr_from_file(const std::string &filepath)
-{
-    std::ifstream file(filepath);
-    if (!file)
-        return {};
-    std::vector<std::string> array = {};
-    std::string line = "";
-
-    while (std::getline(file, line))
-        array.push_back(line);
-    return array;
-}
-
 std::pair<int, int> Snake::find_snake_position(const std::vector<std::string> &map)
 {
     if (map.empty())

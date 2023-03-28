@@ -6,7 +6,6 @@
 */
 
 #include "DynamicLibraryHandler.hpp"
-#include <iostream>
 
 DynamicLibraryHandler::DynamicLibraryHandler() : _handle(nullptr) {}
 

@@ -21,6 +21,7 @@
 namespace Display {
     class NCursesWindow : public IWindow {
         public:
+            NCursesWindow();
             ~NCursesWindow() override;
             void create(
                 std::string const &title,
@@ -36,7 +37,7 @@ namespace Display {
             void draw() override;
             void display() override;
             void close() override;
+        };
         private:
-            std::vector<std::string> load_2d_arr_from_file(const std::string &filepath);
-    };
+            WINDOW *window;
 }

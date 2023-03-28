@@ -9,10 +9,10 @@
 #include <string>
 #include <memory>
 #include "../../graphics/include/IWindow.hpp"
-#include "../../graphics/include/IDisplayModule.hpp"
 #include "../../graphics/include/ISprite.hpp"
 #include "../../graphics/include/ITexture.hpp"
 #include "../../games/include/IGameModule.hpp"
+#include "../../graphics/ncurses/include/NCursesWindow.hpp"
 #include "DynamicLibraryHandler.hpp"
 
 int main(int argc, char **argv)
@@ -29,43 +29,15 @@ int main(int argc, char **argv)
     if (!graphicsLibraryHandler.loadLibrary(graphicsLibraryPath))
         return 84;
 
-    typedef Display::IDisplayModule* (*CreateDisplayModuleFunction)();
+    typedef Display::IWindow* (*CreateDisplayModuleFunction)();
     CreateDisplayModuleFunction createDisplayModule = reinterpret_cast<CreateDisplayModuleFunction>(graphicsLibraryHandler.getSymbol("create"));
 
     if (!createDisplayModule)
         return 84;
 
-    Display::IDisplayModule *displayModule = createDisplayModule();
-    displayModule->create();
+    Display::IWindow *displayModule = createDisplayModule();
+    displayModule->create("test", 60, 800, 400);
 
-    DynamicLibraryHandler gameLibraryHandler;
-    if (!gameLibraryHandler.loadLibrary(gamesLibraryPath))
-        return 84;
-    
-    typedef IGameModule* (*CreateGameModuleFunction)();
-    CreateGameModuleFunction createGameModule = reinterpret_cast<CreateGameModuleFunction>(gameLibraryHandler.getSymbol("create"));
-
-    if (!createGameModule)
-        return 84;
-
-    IGameModule *gameModule = createGameModule();
-    gameModule->init();
-
-    // Boucle principale
-    // bool running = true;
-    // while (running) {
-
-    //     displayModule->clear();
-    //     // Ici, vous ajouterez plus tard les appels pour mettre à jour et dessiner le module de jeu.
-    //     displayModule->draw(nullptr);
-    //     displayModule->update();
-    // }
-
-    // Nettoyer
-    displayModule->destroy();
     delete displayModule;
-
-    delete gameModule;
-
     return 0;
 }

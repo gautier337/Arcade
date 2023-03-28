@@ -9,17 +9,16 @@
 
 #include <string>
 #include <dlfcn.h>
+#include <iostream>
 
 class DynamicLibraryHandler {
-public:
-    DynamicLibraryHandler();
-    ~DynamicLibraryHandler();
+    public:
+        DynamicLibraryHandler();
+        ~DynamicLibraryHandler();
+        bool loadLibrary(const std::string& path);
+        void* getSymbol(const std::string& name);
 
-    bool loadLibrary(const std::string& path);
-    void* getSymbol(const std::string& name);
-
-private:
-    void closeLibrary();
-
-    void* _handle;
+    private:
+        void closeLibrary();
+        void* _handle;
 };
