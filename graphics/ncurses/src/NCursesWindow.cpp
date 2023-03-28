@@ -7,15 +7,15 @@
 
 #include "../include/NCursesWindow.hpp"
 
-// Display::NCursesWindow::NCursesWindow()
-// {
-//     std::cout << "NCursesWindow constructor called" << std::endl;
-// }
+Display::NCursesWindow::NCursesWindow()
+{
+    std::cout << "NCursesWindow constructor called" << std::endl;
+}
 
-// Display::NCursesWindow::~NCursesWindow()
-// {
-//     std::cout << "NCursesWindow destructor called" << std::endl;
-// }
+Display::NCursesWindow::~NCursesWindow()
+{
+    std::cout << "NCursesWindow destructor called" << std::endl;
+}
 
 std::vector<std::string> Display::NCursesWindow::load_2d_arr_from_file(const std::string &filepath)
 {
@@ -39,14 +39,10 @@ void Display::NCursesWindow::create(std::string const &title, int framerateLimit
     noecho();
     keypad(stdscr, TRUE);
     std::vector<std::string> map = load_2d_arr_from_file("../../../map/map");
-    if (map.empty()) {
-        endwin();
-        throw std::runtime_error("Erreur lors du chargement de la map");
-    }
     int startX = (winWidth - map[0].size()) / 2;
     int startY = (winHeight - map.size()) / 2;
     while (1) {
-        erase();
+        clear();
         for (size_t i = 0; i < map.size(); ++i)
             mvprintw(startY + i, startX, "%s", map[i].c_str());
         refresh();
@@ -65,21 +61,21 @@ int main()
     return 0;
 }
 
-// void Display::NCursesWindow::clear()
-// {
-//     ::clear(); // Utiliser l'opérateur de résolution de portée pour éviter la confusion avec la fonction membre clear()
-// }
+void Display::NCursesWindow::clear()
+{
+    ::clear();
+}
 
-// extern "C"
-// {
-//     Display::NCursesWindow *create() {
-//         return new Display::NCursesWindow();
-//     };
-// }
+extern "C"
+{
+    Display::NCursesWindow *create() {
+        return new Display::NCursesWindow();
+    };
+}
 
-// extern "C"
-// {
-//     void destroy(Display::NCursesWindow *NCursesWindow) {
-//         delete NCursesWindow;
-//     };
-// }
+extern "C"
+{
+    void destroy(Display::NCursesWindow *NCursesWindow) {
+        delete NCursesWindow;
+    };
+}
