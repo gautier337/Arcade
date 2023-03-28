@@ -29,15 +29,13 @@ int main(int argc, char **argv)
     if (!graphicsLibraryHandler.loadLibrary(graphicsLibraryPath))
         return 84;
 
-    typedef Display::IWindow* (*CreateDisplayModuleFunction)();
-    CreateDisplayModuleFunction createDisplayModule = reinterpret_cast<CreateDisplayModuleFunction>(graphicsLibraryHandler.getSymbol("create"));
+    typedef std::unique_ptr<Display::IWindow> (*CreateDisplayModuleFunction)();
+    CreateDisplayModuleFunction createDisplayModule = reinterpret_cast<CreateDisplayModuleFunction>(graphicsLibraryHandler.getSymbol("createWindow"));
 
     if (!createDisplayModule)
         return 84;
 
-    Display::IWindow *displayModule = createDisplayModule();
+    std::unique_ptr<Display::IWindow> displayModule = createDisplayModule();
     displayModule->create("test", 60, 800, 400);
-
-    delete displayModule;
     return 0;
 }

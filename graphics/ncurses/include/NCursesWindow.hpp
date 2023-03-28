@@ -37,7 +37,8 @@ namespace Display {
             void draw() override;
             void display() override;
             void close() override;
-        };
         private:
             WINDOW *window;
+            std::string title;
+    };
 }

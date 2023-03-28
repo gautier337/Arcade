@@ -30,5 +30,5 @@ namespace Display {
             virtual void display() = 0;
             virtual void close() = 0;
     };
-    // extern "C" std::unique_ptr<IWindow> createWindow();
+    extern "C" std::unique_ptr<IWindow> createWindow();
 };
