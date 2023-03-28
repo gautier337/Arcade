@@ -5,8 +5,8 @@
 ** IVector2f
 */
 
-#ifndef IVECTOR2F_HPP_
-#define IVECTOR2F_HPP_
+#pragma once
+#include <memory>
 
 namespace Display {
     class IVector2f {
@@ -18,6 +18,5 @@ namespace Display {
             virtual float getY() = 0;
             virtual void setY(float y) = 0;
     };
-    // extern "C" std::unique_ptr<IVector2f> createVector2f();
+    extern "C" std::unique_ptr<IVector2f> createVector2f();
 };
-#endif /* !IVECTOR2F_HPP_ */

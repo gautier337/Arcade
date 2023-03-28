@@ -15,7 +15,8 @@
 #include "../../games/include/IGameModule.hpp"
 #include "DynamicLibraryHandler.hpp"
 
-int main(int argc, char* argv[]) {
+int main(int argc, char **argv)
+{
     if (argc != 3) {
         std::cerr << "Usage: " << argv[0] << " <path_to_graphics_library> <path_to_games_library>" << std::endl;
         return 84;

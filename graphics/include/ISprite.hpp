@@ -29,5 +29,5 @@ namespace Display {
             virtual void setTexture(std::unique_ptr<Display::ITexture> &texture) = 0;
             virtual void move(std::unique_ptr<Display::IVector2f> &offset) = 0;
     };
-    // extern "C" std::unique_ptr<ISprite> createSprite();
+    extern "C" std::unique_ptr<ISprite> createSprite();
 };

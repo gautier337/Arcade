@@ -8,6 +8,7 @@
 #pragma once
 
 #include "IIntRect.hpp"
+#include <memory>
 
 namespace Display {
     class IIntRect {
@@ -23,5 +24,5 @@ namespace Display {
             virtual int getHeight() = 0;
             virtual void setHeight(int height) = 0;
     };
-    // extern "C" std::unique_ptr<IIntRect> createIntRect();
+    extern "C" std::unique_ptr<IIntRect> createIntRect();
 };

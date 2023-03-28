@@ -8,6 +8,7 @@
 #pragma once
 
 #include <string>
+#include <memory>
 
 namespace Display {
     class ITexture {
@@ -17,5 +18,5 @@ namespace Display {
             virtual void update(const std::string &path) = 0;
             virtual void destroy() = 0;
     };
-    // extern "C" std::unique_ptr<ITexture> createTexture();
+    extern "C" std::unique_ptr<ITexture> createTexture();
 };

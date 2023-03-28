@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <memory>
+
 namespace Display {
     enum KeyType {
         Unknown = -1,
@@ -46,5 +48,5 @@ namespace Display {
             virtual Display::KeyType getType() = 0;
             virtual void setType(Display::KeyType type) = 0;
     };
-    // extern "C" std::unique_ptr<IEvent> createEvent();
+    extern "C" std::unique_ptr<IEvent> createEvent();
 };
