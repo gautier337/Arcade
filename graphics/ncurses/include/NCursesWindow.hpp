@@ -9,6 +9,11 @@
 
 #include <ncurses.h>
 #include <string>
+#include <vector>
+#include <iostream>
+#include <fstream>
+#include <ncurses.h>
+#include <stdexcept>
 #include "../../include/ISprite.hpp"
 #include "../../include/IEvent.hpp"
 #include "../../include/IWindow.hpp"
@@ -31,5 +36,7 @@ namespace Display {
             void draw() override;
             void display() override;
             void close() override;
+        private:
+            std::vector<std::string> load_2d_arr_from_file(const std::string &filepath);
     };
 }

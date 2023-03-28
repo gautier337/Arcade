@@ -18,9 +18,9 @@ Snake::~Snake()
     std::cout << "Snake game destroyed" << std::endl;
 }
 
-std::vector<std::string> Snake::load_2d_arr_from_file ()
+std::vector<std::string> load_2d_arr_from_file(const std::string &filepath)
 {
-    std::ifstream file("map/map");
+    std::ifstream file(filepath);
     if (!file)
         return {};
     std::vector<std::string> array = {};
@@ -53,15 +53,7 @@ int Snake::check_errors(const std::vector<std::string> &map, const std::pair<int
 
 void Snake::init()
 {
-    std::vector<std::string> map = load_2d_arr_from_file();
-    std::pair<int, int> snake_pos = find_snake_position(map);
-    for (size_t i = 0; i != map.size(); i++) {
-        for (size_t j = 0; j != map[i].length(); j++) {
-            std::cout << map[i][j];
-        }
-        std::cout << std::endl;
-    }
-    std::cout << snake_pos.first << " " << snake_pos.second << std::endl;
+    return;
 }
 
 void Snake::updateGame()

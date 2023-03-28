@@ -5,8 +5,7 @@
 ** DynamicLibraryHandler
 */
 
-#ifndef DYNAMIC_LIBRARY_HANDLER_HPP
-#define DYNAMIC_LIBRARY_HANDLER_HPP
+#pragma once
 
 #include <string>
 #include <dlfcn.h>
@@ -24,5 +23,3 @@ private:
 
     void* _handle;
 };
-
-#endif
