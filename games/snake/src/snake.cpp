@@ -51,20 +51,27 @@ std::vector<std::string> Snake::load_2d_arr_from_file(const std::string &filepat
     return array;
 }
 
-void Snake::init()
+void Snake::init(std::unique_ptr<Display::IWindow> &window)
 {
+    _window = std::move(window);
+    _window->create("test", 60, 800, 400);
+    std::vector<std::string> map = load_2d_arr_from_file("map/map");
+    std::pair<int, int> snake_pos = find_snake_position(map);
+    if (check_errors(map, snake_pos) == 84)
+        return;
+    std::cout << "Snake game initialized" << std::endl;
+    updateGame();
     return;
 }
 
 void Snake::updateGame()
 {
-    window->clear();
-    // Update game logic, handle input, etc.
+    _window->clear();
 }
 
 void Snake::stop()
 {
-    // Cleanup, release resources, etc.
+    std::cout << "Snake game stopped" << std::endl;
 }
 
 extern "C" std::unique_ptr<IGameModule> createGame() {

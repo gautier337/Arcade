@@ -40,5 +40,8 @@ namespace Display {
         private:
             WINDOW *window;
             std::string title;
+            int width;
+            int height;
+            int framerateLimit;
     };
 }

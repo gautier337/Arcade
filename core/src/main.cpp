@@ -36,7 +36,7 @@ int main(int argc, char **argv)
         return 84;
 
     std::unique_ptr<Display::IWindow> displayModule = createDisplayModule();
-    displayModule->create("test", 60, 800, 400);
+    // displayModule->create("test", 60, 800, 400);
 
 
 
@@ -51,5 +51,6 @@ int main(int argc, char **argv)
         return 84;
 
     std::unique_ptr<IGameModule> gameModule = createGameModule();
+    gameModule->init(displayModule);
     return 0;
 }
