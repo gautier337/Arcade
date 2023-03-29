@@ -28,7 +28,4 @@ class Snake : public IGameModule {
         int check_errors(const std::vector<std::string> &map, const std::pair<int, int> &snake_pos);
         std::vector<std::string> _map;
         void moveSnake(std::string direction);
-        std::deque<std::pair<int, int>> _snake_body;
-        std::string _current_direction;
-        bool _is_food_eaten;
 };
