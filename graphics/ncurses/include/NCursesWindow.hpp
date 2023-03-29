@@ -12,7 +12,6 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
-#include <ncurses.h>
 #include <stdexcept>
 #include "../../include/ISprite.hpp"
 #include "../../include/IEvent.hpp"
@@ -29,7 +28,7 @@ namespace Display {
                 int width,
                 int height
             ) override;
-            std::unique_ptr<Display::IEvent> getEvent() override;
+            Display::KeyType getEvent() override;
             std::string getTitle() override;
             void setTitle(std::string const &title) override;
             bool isOpen() override;
@@ -43,5 +42,6 @@ namespace Display {
             int width;
             int height;
             int framerateLimit;
+            void drawCharacter(int x, int y, char character);
     };
 }

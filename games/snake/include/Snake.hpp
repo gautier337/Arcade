@@ -18,7 +18,6 @@ class Snake : public IGameModule {
     public:
         Snake();
         ~Snake();
-
         void init(std::unique_ptr<Display::IWindow> &window) override;
         void updateGame() override;
         void stop() override;
@@ -27,4 +26,9 @@ class Snake : public IGameModule {
         std::vector<std::string> load_2d_arr_from_file(const std::string &filepath);
         std::pair<int, int> find_snake_position(const std::vector<std::string> &map);
         int check_errors(const std::vector<std::string> &map, const std::pair<int, int> &snake_pos);
+        std::vector<std::string> _map;
+        void moveSnake(std::string direction);
+        std::deque<std::pair<int, int>> _snake_body;
+        std::string _current_direction;
+        bool _is_food_eaten;
 };

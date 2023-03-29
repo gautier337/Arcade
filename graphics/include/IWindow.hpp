@@ -21,7 +21,7 @@ namespace Display {
                 int width,
                 int height
             ) = 0;
-            virtual std::unique_ptr<Display::IEvent> getEvent() = 0;
+            virtual Display::KeyType getEvent() = 0;
             virtual std::string getTitle() = 0;
             virtual void setTitle(std::string const &title) = 0;
             virtual bool isOpen() = 0;
@@ -29,5 +29,6 @@ namespace Display {
             virtual void draw() = 0;
             virtual void display() = 0;
             virtual void close() = 0;
+            virtual void drawCharacter(int x, int y, char character) = 0;
     };
 };

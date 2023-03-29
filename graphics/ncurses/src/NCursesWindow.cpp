@@ -35,13 +35,27 @@ Display::NCursesWindow::~NCursesWindow()
 
 void Display::NCursesWindow::clear()
 {
-    std::cout << "NCursesWindow clear called" << std::endl;
-    return;
+    wclear(this->window);
 }
 
-std::unique_ptr<Display::IEvent> Display::NCursesWindow::getEvent()
+Display::KeyType Display::NCursesWindow::getEvent()
 {
-    return nullptr;
+    int key = getch();
+    if (key != ERR) {
+        if (key == 'x' || key == 'X') {
+            this->close();
+            return Display::KeyType::X;
+        }
+        if (key == 'Z' || key == 'z')
+            return Display::KeyType::Z;
+        if (key == 'S' || key == 's')
+            return Display::KeyType::S;
+        if (key == 'Q' || key == 'q')
+            return Display::KeyType::Q;
+        if (key == 'D' || key == 'd')
+            return Display::KeyType::D;
+    }
+    return Display::KeyType::Unknown;
 }
 
 std::string Display::NCursesWindow::getTitle()
@@ -56,21 +70,34 @@ void Display::NCursesWindow::setTitle(std::string const &title)
 
 bool Display::NCursesWindow::isOpen()
 {
+    if (this->window == nullptr)
+        return false;
     return true;
+}
+
+void Display::NCursesWindow::drawCharacter(int x, int y, char character)
+{
+    mvaddch(y, x, character);
 }
 
 void Display::NCursesWindow::draw()
 {
+    drawCharacter(1, 1, 'S');
 }
 
 void Display::NCursesWindow::display()
 {
+    wrefresh(this->window);
 }
 
 void Display::NCursesWindow::close()
 {
+    if (this->window != nullptr)
+        delwin(this->window);
+    endwin();
 }
 
-extern "C" std::unique_ptr<Display::IWindow> createWindow() {
+extern "C" std::unique_ptr<Display::IWindow> createWindow()
+{
     return std::make_unique<Display::NCursesWindow>();
 }
