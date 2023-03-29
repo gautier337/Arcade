@@ -38,6 +38,19 @@ int Snake::check_errors(const std::vector<std::string> &map, const std::pair<int
     return 0;
 }
 
+std::vector<std::string> Snake::load_2d_arr_from_file(const std::string &filepath)
+{
+    std::ifstream file(filepath);
+    if (!file)
+        return {};
+    std::vector<std::string> array = {};
+    std::string line = "";
+
+    while (std::getline(file, line))
+        array.push_back(line);
+    return array;
+}
+
 void Snake::init()
 {
     return;
@@ -45,18 +58,15 @@ void Snake::init()
 
 void Snake::updateGame()
 {
+    window->clear();
     // Update game logic, handle input, etc.
 }
 
-void Snake::stop() {
+void Snake::stop()
+{
     // Cleanup, release resources, etc.
 }
 
-extern "C" IGameModule *create()
-{
-    return new Snake();
-}
-
-extern "C" void destroy(IGameModule *game) {
-    delete game;
+extern "C" std::unique_ptr<IGameModule> createGame() {
+    return std::make_unique<Snake>();
 }

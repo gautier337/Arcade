@@ -35,6 +35,7 @@ Display::NCursesWindow::~NCursesWindow()
 
 void Display::NCursesWindow::clear()
 {
+    std::cout << "NCursesWindow clear called" << std::endl;
     return;
     // Implémentez le clear ici
 }

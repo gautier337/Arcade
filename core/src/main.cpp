@@ -37,5 +37,19 @@ int main(int argc, char **argv)
 
     std::unique_ptr<Display::IWindow> displayModule = createDisplayModule();
     displayModule->create("test", 60, 800, 400);
+
+
+
+    DynamicLibraryHandler gameLibraryHandler;
+    if (!gameLibraryHandler.loadLibrary(gamesLibraryPath))
+        return 84;
+
+    typedef std::unique_ptr<IGameModule> (*CreataGameModuleFunction)();
+    CreataGameModuleFunction createGameModule = reinterpret_cast<CreataGameModuleFunction>(gameLibraryHandler.getSymbol("createGame"));
+
+    if (!createGameModule)
+        return 84;
+
+    std::unique_ptr<IGameModule> gameModule = createGameModule();
     return 0;
 }
