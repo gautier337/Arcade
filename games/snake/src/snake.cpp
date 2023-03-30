@@ -39,18 +39,29 @@ int Snake::check_errors(const std::vector<std::string> &map, const std::pair<int
     return 0;
 }
 
-std::vector<std::string> Snake::load_2d_arr_from_file(const std::string &filepath)
+std::vector<std::string> Snake::load_map()
 {
-    std::ifstream file(filepath);
-    if (!file)
-        return {};
-    std::vector<std::string> array = {};
-    std::string line = "";
+    std::vector<std::string> array = {
+        "######################################",
+        "#                                    #",
+        "#           G                        #",
+        "#                    G               #",
+        "#                                    #",
+        "#                                    #",
+        "#                                    #",
+        "#          G                         #",
+        "#                                    #",
+        "#                                    #",
+        "#           S                        #",
+        "#               G                    #",
+        "#                                    #",
+        "#       G                            #",
+        "#                                    #",
+        "######################################"};
 
-    while (std::getline(file, line))
-        array.push_back(line);
     return array;
 }
+
 
 void Snake::init(std::unique_ptr<Display::IWindow> &window)
 {
@@ -63,19 +74,17 @@ void Snake::init(std::unique_ptr<Display::IWindow> &window)
 void Snake::moveSnake(std::string direction)
 {
     std::pair<int, int> snake_pos = find_snake_position(_map);
-
     int new_row = snake_pos.first;
     int new_col = snake_pos.second;
 
-    if (direction == "UP") {
+    if (direction == "UP")
         new_row -= 1;
-    } else if (direction == "DOWN") {
+    else if (direction == "DOWN")
         new_row += 1;
-    } else if (direction == "LEFT") {
+    else if (direction == "LEFT")
         new_col -= 1;
-    } else if (direction == "RIGHT") {
+    else if (direction == "RIGHT")
         new_col += 1;
-    }
 
     _map[new_row][new_col] = 'S';
     _map[snake_pos.first][snake_pos.second] = ' ';
@@ -83,7 +92,7 @@ void Snake::moveSnake(std::string direction)
 
 void Snake::updateGame()
 {
-    _map = load_2d_arr_from_file("map/map");
+    _map = load_map();
     std::pair<int, int> snake_pos = find_snake_position(_map);
     if (check_errors(_map, snake_pos) == 84)
         return;
@@ -92,18 +101,14 @@ void Snake::updateGame()
         Display::KeyType key = _window->getEvent();
         if (key == Display::KeyType::X)
             break;
-        if (key == Display::KeyType::Z) {
+        if (key == Display::KeyType::Z)
             moveSnake("UP");
-        }
-        if (key == Display::KeyType::S) {
+        if (key == Display::KeyType::S)
             moveSnake("DOWN");
-        }
-        if (key == Display::KeyType::Q) {
+        if (key == Display::KeyType::Q)
             moveSnake("LEFT");
-        }
-        if (key == Display::KeyType::D) {
+        if (key == Display::KeyType::D)
             moveSnake("RIGHT");
-        }
         for (size_t i = 0; i != _map.size(); i++)
             for (size_t j = 0; j != _map[i].length(); j++)
                 _window->drawCharacter(j, i, _map[i][j]);
