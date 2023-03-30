@@ -13,6 +13,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <deque>
 
 class Snake : public IGameModule {
     public:
@@ -25,7 +26,11 @@ class Snake : public IGameModule {
         std::unique_ptr<Display::IWindow> _window;
         std::vector<std::string> load_map();
         std::pair<int, int> find_snake_position(const std::vector<std::string> &map);
-        int check_errors(const std::vector<std::string> &map, const std::pair<int, int> &snake_pos);
         std::vector<std::string> _map;
-        void moveSnake(std::string direction);
+        bool moveSnake(std::string direction);
+        bool check_wall_collision(const std::vector<std::string> &map, size_t row, size_t col);
+        std::string _current_direction = "RIGHT";
+        std::deque<std::pair<int, int>> _snake_body;
+        bool check_self_collision(int row, int col);
+        void place_apple();
 };

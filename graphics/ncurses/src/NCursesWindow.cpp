@@ -23,16 +23,6 @@ void Display::NCursesWindow::create(std::string const &title, int framerateLimit
     this->framerateLimit = framerateLimit;
 }
 
-Display::NCursesWindow::NCursesWindow()
-{
-    return;
-}
-
-Display::NCursesWindow::~NCursesWindow()
-{
-    return;
-}
-
 void Display::NCursesWindow::clear()
 {
     wclear(this->window);
@@ -56,16 +46,6 @@ Display::KeyType Display::NCursesWindow::getEvent()
             return Display::KeyType::D;
     }
     return Display::KeyType::Unknown;
-}
-
-std::string Display::NCursesWindow::getTitle()
-{
-    return "";
-}
-
-void Display::NCursesWindow::setTitle(std::string const &title)
-{
-    std::cout << "test title:" << title << std::endl;
 }
 
 bool Display::NCursesWindow::isOpen()
@@ -95,6 +75,26 @@ void Display::NCursesWindow::close()
     if (this->window != nullptr)
         delwin(this->window);
     endwin();
+}
+
+void Display::NCursesWindow::setTitle(std::string const &title)
+{
+    std::cout << "test title:" << title << std::endl;
+}
+
+std::string Display::NCursesWindow::getTitle()
+{
+    return "";
+}
+
+Display::NCursesWindow::NCursesWindow()
+{
+    return;
+}
+
+Display::NCursesWindow::~NCursesWindow()
+{
+    return;
 }
 
 extern "C" std::unique_ptr<Display::IWindow> createWindow()
