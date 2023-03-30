@@ -16,6 +16,10 @@ void Display::NCursesWindow::create(std::string const &title, int framerateLimit
     raw();
     keypad(stdscr, TRUE);
     nodelay(stdscr, TRUE);
+    start_color();
+    init_pair(1, COLOR_RED, COLOR_RED);
+    init_pair(2, COLOR_GREEN, COLOR_GREEN);
+    init_pair(3, COLOR_BLUE, COLOR_BLUE);
     this->window = newwin(height, width, (winHeight - height) / 2, (winWidth - width) / 2);
     this->title = title;
     this->width = width;
@@ -57,12 +61,26 @@ bool Display::NCursesWindow::isOpen()
 
 void Display::NCursesWindow::drawCharacter(int x, int y, char character)
 {
-    mvaddch(y, x, character);
-}
-
-void Display::NCursesWindow::draw()
-{
-    drawCharacter(1, 1, 'S');
+    switch (character) {
+    case 'S':
+        attron(COLOR_PAIR(1));
+        mvaddch(y, x, ' ');
+        attroff(COLOR_PAIR(1));
+        break;
+    case 'G':
+        attron(COLOR_PAIR(2));
+        mvaddch(y, x, ' ');
+        attroff(COLOR_PAIR(2));
+        break;
+    case '#':
+        attron(COLOR_PAIR(3));
+        mvaddch(y, x, ' ');
+        attroff(COLOR_PAIR(3));
+        break;
+    default:
+        mvaddch(y, x, character);
+        break;
+    }
 }
 
 void Display::NCursesWindow::display()
@@ -75,6 +93,11 @@ void Display::NCursesWindow::close()
     if (this->window != nullptr)
         delwin(this->window);
     endwin();
+}
+
+void Display::NCursesWindow::draw()
+{
+    drawCharacter(1, 1, 'S');
 }
 
 void Display::NCursesWindow::setTitle(std::string const &title)

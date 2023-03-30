@@ -62,7 +62,6 @@ bool Snake::check_wall_collision(const std::vector<std::string> &map, size_t row
 {
     if (row >= map.size() || col >= map[row].length())
         return true;
-
     return map[row][col] == '#';
 }
 
@@ -71,7 +70,6 @@ bool Snake::check_self_collision(int row, int col)
     for (const auto &part : _snake_body)
         if (part.first == row && part.second == col)
             return true;
-
     return false;
 }
 
