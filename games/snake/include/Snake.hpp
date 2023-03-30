@@ -33,4 +33,6 @@ class Snake : public IGameModule {
         std::deque<std::pair<int, int>> _snake_body;
         bool check_self_collision(int row, int col);
         void place_apple();
+        int _score;
+        void drawScore();
 };

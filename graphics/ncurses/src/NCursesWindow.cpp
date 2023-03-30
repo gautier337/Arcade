@@ -62,7 +62,7 @@ bool Display::NCursesWindow::isOpen()
 void Display::NCursesWindow::drawCharacter(int x, int y, char character)
 {
     switch (character) {
-    case 'S':
+    case 'P':
         attron(COLOR_PAIR(1));
         mvaddch(y, x, ' ');
         attroff(COLOR_PAIR(1));
@@ -97,7 +97,7 @@ void Display::NCursesWindow::close()
 
 void Display::NCursesWindow::draw()
 {
-    drawCharacter(1, 1, 'S');
+    drawCharacter(1, 1, 'P');
 }
 
 void Display::NCursesWindow::setTitle(std::string const &title)

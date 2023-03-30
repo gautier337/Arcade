@@ -30,7 +30,7 @@ std::pair<int, int> Snake::find_snake_position(const std::vector<std::string> &m
         return std::make_pair(-1, -1);
     for (size_t i = 0; i != map.size(); i++) 
         for (size_t j = 0; j != map[i].length(); j++)
-            if (map[i][j] == 'S')
+            if (map[i][j] == 'P')
                 return std::make_pair(i, j);
     return std::make_pair(-1, -1);
 }
@@ -48,7 +48,7 @@ std::vector<std::string> Snake::load_map()
         "#           G                        #",
         "#                                    #",
         "#     G             G                #",
-        "#           S                        #",
+        "#           P                        #",
         "#                    G               #",
         "#                                    #",
         "#       G             G              #",
@@ -78,6 +78,7 @@ void Snake::init(std::unique_ptr<Display::IWindow> &window)
     _window = std::move(window);
     _window->create("test", 60, 800, 400);
     _snake_body.push_back(find_snake_position(load_map()));
+    _score = 0;
     updateGame();
     return;
 }
@@ -106,15 +107,26 @@ bool Snake::moveSnake(std::string direction)
 
     _map[_snake_body.back().first][_snake_body.back().second] = ' ';
     _snake_body.push_front(std::make_pair(new_row, new_col));
-    _map[new_row][new_col] = 'S';
+    _map[new_row][new_col] = 'P';
 
     if (!ate_apple)
         _snake_body.pop_back();
-    else
+    else {
         place_apple();
-
+        _score++;
+    }
     return false;
 }
+
+void Snake::drawScore()
+{
+    std::string scoreText = "Score: " + std::to_string(_score);
+    int startX = scoreText.length() - 1;
+
+    for (size_t i = 0; i != scoreText.length(); i++)
+        _window->drawCharacter(startX + i, 0, scoreText[i]);
+}
+
 
 void Snake::place_apple()
 {
@@ -146,7 +158,7 @@ void Snake::updateGame()
         _window->clear();
 
         for (const auto &part : _snake_body)
-            _map[part.first][part.second] = 'S';
+            _map[part.first][part.second] = 'P';
 
         Display::KeyType key = _window->getEvent();
         if (key == Display::KeyType::X)
@@ -162,7 +174,8 @@ void Snake::updateGame()
         collision = moveSnake(_current_direction);
         for (size_t i = 0; i != _map.size(); i++)
             for (size_t j = 0; j != _map[i].length(); j++)
-                _window->drawCharacter(j, i, _map[i][j]);
+                _window->drawCharacter(j, i + 2, _map[i][j]);
+        drawScore();
         _window->display();
         auto end = std::chrono::steady_clock::now();
         auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
@@ -171,6 +184,7 @@ void Snake::updateGame()
     }
     stop();
 }
+
 
 void Snake::stop()
 {
