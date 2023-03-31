@@ -17,7 +17,8 @@ namespace Display {
     class SFMLWindow : public IWindow {
         public:
             SFMLWindow();
-            ~SFMLWindow() override;
+            ~SFMLWindow();
+
             void create(std::string const &title, int framerateLimit, int width, int height) override;
             Display::KeyType getEvent() override;
             std::string getTitle() override;
@@ -27,12 +28,13 @@ namespace Display {
             void draw() override;
             void display() override;
             void close() override;
+            void drawCharacter(int x, int y, char character) override;
+
         private:
-            sf::RenderWindow *window;
-            std::string title;
-            int width;
-            int height;
-            int framerateLimit;
-            void drawCharacter(int x, int y, char character);
+            sf::RenderWindow _window;
+            sf::Font _font;
+            std::map<char, sf::Color> _colorMap;
+            std::string _title;
+            void setupColorMap();
     };
-}
+};

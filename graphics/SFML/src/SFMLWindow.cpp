@@ -9,43 +9,59 @@
 
 Display::SFMLWindow::SFMLWindow()
 {
-    std::cout << "SFML Window created" << std::endl;    
+    setupColorMap();
 }
 
 Display::SFMLWindow::~SFMLWindow()
 {
-    std::cout << "SFML Window destroyed" << std::endl;
+    close();
+}
+
+void Display::SFMLWindow::setupColorMap()
+{
+    _colorMap['P'] = sf::Color::Red;
+    _colorMap['G'] = sf::Color::Green;
+    _colorMap['#'] = sf::Color::Blue;
 }
 
 void Display::SFMLWindow::create(std::string const &title, int framerateLimit, int width, int height)
 {
-    this->title = title;
-    this->framerateLimit = framerateLimit;
-    this->width = width;
-    this->height = height;
-    this->window = new sf::RenderWindow(sf::VideoMode(width, height), title);
-    this->window->setFramerateLimit(framerateLimit);
+    _title = title;
+    _window.create(sf::VideoMode(width, height), title);
+    _window.setFramerateLimit(framerateLimit);
+    _font.loadFromFile("font/arial.ttf");
+    if (!_font.loadFromFile("font/arial.ttf"))
+        std::cout << "Error loading font" << std::endl;
 }
 
 Display::KeyType Display::SFMLWindow::getEvent()
 {
     sf::Event event;
-    while (this->window->pollEvent(event)) {
-        if (event.type == sf::Event::Closed) {
-            this->window->close();
+    while (_window.pollEvent(event))
+    {
+        if (event.type == sf::Event::Closed)
+        {
+            close();
             return Display::KeyType::X;
         }
-        if (event.type == sf::Event::KeyPressed) {
-            if (event.key.code == sf::Keyboard::Z)
-                return Display::KeyType::Z;
-            if (event.key.code == sf::Keyboard::S)
-                return Display::KeyType::S;
-            if (event.key.code == sf::Keyboard::Q)
-                return Display::KeyType::Q;
-            if (event.key.code == sf::Keyboard::D)
-                return Display::KeyType::D;
-            if (event.key.code == sf::Keyboard::X)
+        if (event.type == sf::Event::KeyPressed)
+        {
+            switch (event.key.code)
+            {
+            case sf::Keyboard::X:
+                close();
                 return Display::KeyType::X;
+            case sf::Keyboard::Z:
+                return Display::KeyType::Z;
+            case sf::Keyboard::S:
+                return Display::KeyType::S;
+            case sf::Keyboard::Q:
+                return Display::KeyType::Q;
+            case sf::Keyboard::D:
+                return Display::KeyType::D;
+            default:
+                break;
+            }
         }
     }
     return Display::KeyType::Unknown;
@@ -53,51 +69,49 @@ Display::KeyType Display::SFMLWindow::getEvent()
 
 std::string Display::SFMLWindow::getTitle()
 {
-    return this->title;
+    return _title;
 }
 
 void Display::SFMLWindow::setTitle(std::string const &title)
 {
-    this->title = title;
-    this->window->setTitle(title);
+    _title = title;
+    _window.setTitle(_title);
 }
 
 bool Display::SFMLWindow::isOpen()
 {
-    return this->window->isOpen();
+    return _window.isOpen();
 }
 
 void Display::SFMLWindow::clear()
 {
-    this->window->clear();
+    _window.clear();
 }
 
 void Display::SFMLWindow::draw()
 {
-    // this->window->draw();
-    std::cout << "SFML Window draw" << std::endl;
+    drawCharacter(1, 1, 'P');
 }
 
 void Display::SFMLWindow::display()
 {
-    this->window->display();
+    _window.display();
 }
 
 void Display::SFMLWindow::close()
 {
-    this->window->close();
+    _window.close();
 }
 
 void Display::SFMLWindow::drawCharacter(int x, int y, char character)
 {
-    sf::Font font;
-    sf::Text text;
-    if (!font.loadFromFile("assets/arial.ttf"))
-        std::cout << "Error loading font" << std::endl;
-    text.setFont(font);
-    text.setCharacterSize(24);
-    text.setFillColor(sf::Color::White);
-    text.setPosition(x, y);
-    text.setString(character);
-    this->window->draw(text);
+    sf::RectangleShape shape(sf::Vector2f(1, 1));
+    shape.setFillColor(_colorMap[character]);
+    shape.setPosition(x, y);
+    _window.draw(shape);
+}
+
+extern "C" std::unique_ptr<Display::IWindow> createWindow()
+{
+    return std::make_unique<Display::SFMLWindow>();
 }

@@ -33,7 +33,10 @@ fclean:
 
 re: fclean all
 
-launch:
+launch_ncurses:
 	make && ./arcade lib/arcade_ncurses.so lib/arcade_snake.so
+
+launch_SFML:
+	make && ./arcade lib/arcade_SFML.so lib/arcade_snake.so
 
 .PHONY: all core games graphics clean fclean re

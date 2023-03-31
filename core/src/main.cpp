@@ -21,7 +21,6 @@ int main(int argc, char **argv)
         std::cerr << "Usage: " << argv[0] << " <path_to_graphics_library> <path_to_games_library>" << std::endl;
         return 84;
     }
-
     std::string graphicsLibraryPath = argv[1];
     std::string gamesLibraryPath = argv[2];
 
@@ -36,9 +35,6 @@ int main(int argc, char **argv)
         return 84;
 
     std::unique_ptr<Display::IWindow> displayModule = createDisplayModule();
-    // displayModule->create("test", 60, 800, 400);
-
-
 
     DynamicLibraryHandler gameLibraryHandler;
     if (!gameLibraryHandler.loadLibrary(gamesLibraryPath))
