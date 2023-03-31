@@ -29,7 +29,6 @@ void Display::SFMLWindow::create(std::string const &title, int framerateLimit, i
     _title = title;
     _window.create(sf::VideoMode(width, height), title);
     _window.setFramerateLimit(framerateLimit);
-    _font.loadFromFile("font/arial.ttf");
     if (!_font.loadFromFile("font/arial.ttf"))
         std::cout << "Error loading font" << std::endl;
 }
@@ -37,17 +36,13 @@ void Display::SFMLWindow::create(std::string const &title, int framerateLimit, i
 Display::KeyType Display::SFMLWindow::getEvent()
 {
     sf::Event event;
-    while (_window.pollEvent(event))
-    {
-        if (event.type == sf::Event::Closed)
-        {
+    while (_window.pollEvent(event)) {
+        if (event.type == sf::Event::Closed) {
             close();
             return Display::KeyType::X;
         }
-        if (event.type == sf::Event::KeyPressed)
-        {
-            switch (event.key.code)
-            {
+        if (event.type == sf::Event::KeyPressed) {
+            switch (event.key.code) {
             case sf::Keyboard::X:
                 close();
                 return Display::KeyType::X;
@@ -105,9 +100,10 @@ void Display::SFMLWindow::close()
 
 void Display::SFMLWindow::drawCharacter(int x, int y, char character)
 {
-    sf::RectangleShape shape(sf::Vector2f(1, 1));
+    float size = 18;
+    sf::RectangleShape shape(sf::Vector2f(size, size));
     shape.setFillColor(_colorMap[character]);
-    shape.setPosition(x, y);
+    shape.setPosition(x * size, y * size);
     _window.draw(shape);
 }
 
