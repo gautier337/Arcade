@@ -46,7 +46,6 @@ int main(int argc, char **argv)
 
     if (!createGameModule)
         return 84;
-    std::cout << "apres OK\n";
 
     std::unique_ptr<IGameModule> gameModule = createGameModule();
 
