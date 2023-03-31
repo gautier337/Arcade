@@ -40,18 +40,18 @@ std::vector<std::string> Snake::load_map()
     std::vector<std::string> array = {
         "######################################",
         "#                                    #",
-        "#           G                        #",
-        "#                    G               #",
-        "#     G                              #",
         "#                                    #",
-        "#                       G            #",
-        "#           G                        #",
         "#                                    #",
-        "#     G             G                #",
+        "#                                    #",
+        "#                                    #",
+        "#                                    #",
+        "#                                    #",
+        "#                                    #",
+        "#                                    #",
         "#           P                        #",
-        "#                    G               #",
         "#                                    #",
-        "#       G             G              #",
+        "#                                    #",
+        "#                     G              #",
         "#                                    #",
         "######################################"};
 
@@ -77,8 +77,13 @@ void Snake::init(std::unique_ptr<Display::IWindow> &window)
 {
     _window = std::move(window);
     _window->create("test", 60, 800, 400);
-    _snake_body.push_back(find_snake_position(load_map()));
+    std::pair<int, int> snake_head = find_snake_position(load_map());
+    _snake_body.push_front(snake_head);
+    _snake_body.push_front(std::make_pair(snake_head.first, snake_head.second + 1));
+    _snake_body.push_front(std::make_pair(snake_head.first, snake_head.second + 2));
+    _snake_body.push_front(std::make_pair(snake_head.first, snake_head.second + 3));
     _score = 0;
+    _map = load_map();
     updateGame();
     return;
 }
@@ -126,7 +131,6 @@ void Snake::drawScore()
     for (size_t i = 0; i != scoreText.length(); i++)
         _window->drawCharacter(startX + i, 0, scoreText[i]);
 }
-
 
 void Snake::place_apple()
 {
@@ -184,7 +188,6 @@ void Snake::updateGame()
     }
     stop();
 }
-
 
 void Snake::stop()
 {
