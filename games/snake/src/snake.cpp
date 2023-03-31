@@ -73,9 +73,13 @@ bool Snake::check_self_collision(int row, int col)
     return false;
 }
 
-void Snake::init(std::unique_ptr<Display::IWindow> &window)
+void Snake::init(std::vector<std::unique_ptr<Display::IWindow>> &windows)
 {
-    _window = std::move(window);
+    if (windows.empty()) {
+        std::cout << "No window available" << std::endl;
+        return;
+    }
+    _window = std::move(windows[0]);
     _window->create("test", 60, 800, 400);
     std::pair<int, int> snake_head = find_snake_position(load_map());
     _snake_body.push_front(snake_head);

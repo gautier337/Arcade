@@ -14,7 +14,7 @@ DynamicLibraryHandler::~DynamicLibraryHandler()
     closeLibrary();
 }
 
-bool DynamicLibraryHandler::loadLibrary(const std::string& path)
+bool DynamicLibraryHandler::loadLibrary(const std::string &path)
 {
     closeLibrary();
     _handle = dlopen(path.c_str(), RTLD_LAZY);
@@ -25,7 +25,7 @@ bool DynamicLibraryHandler::loadLibrary(const std::string& path)
     return true;
 }
 
-void* DynamicLibraryHandler::getSymbol(const std::string& name)
+void* DynamicLibraryHandler::getSymbol(const std::string &name)
 {
     if (!_handle)
         return nullptr;

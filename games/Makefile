@@ -1,29 +1,33 @@
 ##
 ## EPITECH PROJECT, 2023
-## makefile games
+## makefile GAMEs
 ## File description:
 ## Makefile
 ##
 
 CXX = g++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++17 -fno-gnu-unique -fPIC
-LDFLAGS =
+CXXFLAGS = -Wall -Wextra -std=c++17 -fno-gnu-unique -fPIC
 
-GAMES = snake
-GAME_SRC = $(addprefix $(GAMES)/src/, $(addsuffix .cpp, $(GAMES)))
-GAME_OBJ = $(GAME_SRC:.cpp=.o)
+GAMES = snake menu
+GAME_SRC_SNAKE = $(shell find ./snake -type f -name "*.cpp")
+GAME_SRC_MENU = $(shell find ./menu -type f -name "*.cpp")
+GAME_OBJ_SNAKE = $(GAME_SRC_SNAKE:.cpp=.o)
+GAME_OBJ_MENU = $(GAME_SRC_MENU:.cpp=.o)
 GAME_TARGET = $(addprefix ../lib/arcade_, $(addsuffix .so, $(GAMES)))
 
 all: $(GAME_TARGET)
 
-../lib/arcade_%.so: $(GAME_OBJ)
-	$(CXX) -shared $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
+../lib/arcade_snake.so: $(GAME_OBJ_SNAKE)
+	$(CXX) -shared $(CXXFLAGS) -o $@ $^
 
-$(GAME_OBJ): %.o: %.cpp
-	$(CXX) $(CXXFLAGS) -Igames/$(GAMES)/include -c $< -o $@
+../lib/arcade_menu.so: $(GAME_OBJ_MENU)
+	$(CXX) -shared $(CXXFLAGS) -o $@ $^
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -Iinclude -c $< -o $@
 
 clean:
-	rm -f $(GAME_OBJ)
+	rm -f $(GAME_OBJ_SNAKE) $(GAME_OBJ_MENU)
 
 fclean: clean
 	rm -f $(GAME_TARGET)

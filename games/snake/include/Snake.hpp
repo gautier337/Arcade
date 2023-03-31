@@ -19,7 +19,7 @@ class Snake : public IGameModule {
     public:
         Snake();
         ~Snake();
-        void init(std::unique_ptr<Display::IWindow> &window) override;
+        void init(std::vector<std::unique_ptr<Display::IWindow>> &windows) override;
         void updateGame() override;
         void stop() override;
     private:
