@@ -17,6 +17,7 @@ void Display::NCursesWindow::create(std::string const &title, int framerateLimit
     keypad(stdscr, TRUE);
     nodelay(stdscr, TRUE);
     start_color();
+    curs_set(FALSE);
     init_pair(1, COLOR_RED, COLOR_RED);
     init_pair(2, COLOR_GREEN, COLOR_GREEN);
     init_pair(3, COLOR_BLUE, COLOR_BLUE);
