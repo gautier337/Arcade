@@ -49,6 +49,8 @@ Display::KeyType Display::NCursesWindow::getEvent()
             return Display::KeyType::Q;
         if (key == 'D' || key == 'd')
             return Display::KeyType::D;
+        if (key == 'E' || key == 'e')
+            return Display::KeyType::E;
     }
     return Display::KeyType::Unknown;
 }
@@ -63,24 +65,24 @@ bool Display::NCursesWindow::isOpen()
 void Display::NCursesWindow::drawCharacter(int x, int y, char character)
 {
     switch (character) {
-    case 'P':
-        attron(COLOR_PAIR(1));
-        mvaddch(y, x, ' ');
-        attroff(COLOR_PAIR(1));
-        break;
-    case 'G':
-        attron(COLOR_PAIR(2));
-        mvaddch(y, x, ' ');
-        attroff(COLOR_PAIR(2));
-        break;
-    case '#':
-        attron(COLOR_PAIR(3));
-        mvaddch(y, x, ' ');
-        attroff(COLOR_PAIR(3));
-        break;
-    default:
-        mvaddch(y, x, character);
-        break;
+        case 'P':
+            attron(COLOR_PAIR(1));
+            mvaddch(y, x, ' ');
+            attroff(COLOR_PAIR(1));
+            break;
+        case 'G':
+            attron(COLOR_PAIR(2));
+            mvaddch(y, x, ' ');
+            attroff(COLOR_PAIR(2));
+            break;
+        case '#':
+            attron(COLOR_PAIR(3));
+            mvaddch(y, x, ' ');
+            attroff(COLOR_PAIR(3));
+            break;
+        default:
+            mvaddch(y, x, character);
+            break;
     }
 }
 
@@ -91,6 +93,7 @@ void Display::NCursesWindow::display()
 
 void Display::NCursesWindow::close()
 {
+    this->clear();
     if (this->window != nullptr)
         delwin(this->window);
     endwin();

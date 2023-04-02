@@ -36,7 +36,7 @@ void Display::SFMLWindow::create(std::string const &title, int framerateLimit, i
 Display::KeyType Display::SFMLWindow::getEvent()
 {
     sf::Event event;
-    while (_window.pollEvent(event)) {
+    while (isOpen() && _window.pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
             close();
             return Display::KeyType::X;
@@ -95,6 +95,10 @@ void Display::SFMLWindow::display()
 
 void Display::SFMLWindow::close()
 {
+    if (_window.isOpen()) {
+        _window.clear();
+        _window.display();
+    }
     _window.close();
 }
 
