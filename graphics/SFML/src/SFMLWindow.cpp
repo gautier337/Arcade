@@ -70,6 +70,8 @@ Display::KeyType Display::SFMLWindow::getEvent()
                 return Display::KeyType::Q;
             case sf::Keyboard::D:
                 return Display::KeyType::D;
+            case sf::Keyboard::E:
+                return Display::KeyType::E;
             default:
                 break;
             }
