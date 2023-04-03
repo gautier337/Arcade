@@ -36,7 +36,7 @@ int main(int argc, char **argv)
 
     std::vector<std::string> games = {
             "lib/arcade_snake.so",
-            "lib/arcade_nibler.so"
+            "lib/arcade_nibbler.so"
         };
 
     typedef std::unique_ptr<Display::IClock> (*CreateClockModuleFunction)();
