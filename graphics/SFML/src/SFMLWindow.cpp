@@ -20,17 +20,9 @@ Display::SFMLWindow::~SFMLWindow()
 void Display::SFMLWindow::setupColorMap()
 {
     sf::Color whiteColor = sf::Color::White;
-    _colorMap[':'] = sf::Color::White;
-    _colorMap['0'] = sf::Color::White;
-    _colorMap['1'] = sf::Color::White;
-    _colorMap['2'] = sf::Color::White;
-    _colorMap['3'] = sf::Color::White;
-    _colorMap['4'] = sf::Color::White;
-    _colorMap['5'] = sf::Color::White;
-    _colorMap['6'] = sf::Color::White;
-    _colorMap['7'] = sf::Color::White;
-    _colorMap['8'] = sf::Color::White;
-    _colorMap['9'] = sf::Color::White;
+    for (char letter = '0'; letter <= '9'; ++letter) {
+        _colorMap[letter] = whiteColor;
+    }
 
     for (char letter = 'A'; letter <= 'Z'; ++letter) {
         _colorMap[letter] = whiteColor;
@@ -43,6 +35,9 @@ void Display::SFMLWindow::setupColorMap()
     _colorMap['G'] = sf::Color::Green;
     _colorMap['#'] = sf::Color::Blue;
     _colorMap['.'] = sf::Color::White;
+    _colorMap[':'] = sf::Color::White;
+    _colorMap['-'] = sf::Color::White;
+    _colorMap['>'] = sf::Color::White;
 }
 
 void Display::SFMLWindow::create(std::string const &title, int framerateLimit, int width, int height)

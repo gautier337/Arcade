@@ -95,8 +95,8 @@ int main(int argc, char **argv)
                 ++gameIndex;
             }
         } else if (event == Display::KeyType::E) {
-            std::cout << "Loading game: " << games[gameIndex] << std::endl;
             DynamicLibraryHandler gameLibraryHandler;
+
             if (!gameLibraryHandler.loadLibrary(games[gameIndex]))
                 return 84;
 
@@ -112,15 +112,11 @@ int main(int argc, char **argv)
             std::vector<std::unique_ptr<Display::IWindow>> new_display_module_vector;
             new_display_module_vector.push_back(std::move(new_display_module));
 
-            // displayModules[0]->clear();
-            // displayModules[0]->close();
             gameModule->init(new_display_module_vector);
             // displayModules[0]->create("Menu", 60, 1920, 1080);
         } else if (event == Display::KeyType::X) {
             isRunning = false;
         }
     }
-    std::cout << "Bye bye !" << std::endl;
-    // displayModules[0]->close();
     return 0;
 }

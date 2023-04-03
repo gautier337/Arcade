@@ -178,12 +178,9 @@ void Snake::updateGame()
         if (key == Display::KeyType::D)
             _current_direction = "RIGHT";
         collision = moveSnake(_current_direction);
-        for (size_t i = 0; i != _map.size(); i++) {
-            for (size_t j = 0; j != _map[i].length(); j++) {
+        for (size_t i = 0; i != _map.size(); i++)
+            for (size_t j = 0; j != _map[i].length(); j++)
                 _window->drawCharacter(j, i + 2, _map[i][j]);
-                std::cout << _map[i][j] << "i:" << i << "j: "<< j << std::endl;
-            }
-        }
         drawScore();
         _window->display();
         auto end = std::chrono::steady_clock::now();
