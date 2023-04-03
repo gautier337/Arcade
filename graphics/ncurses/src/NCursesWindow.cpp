@@ -9,11 +9,9 @@
 
 void Display::NCursesWindow::create(std::string const &title, int framerateLimit, int width, int height)
 {
-    int winWidth, winHeight = 0;
-    getmaxyx(stdscr, winHeight, winWidth);
     initscr();
-    noecho();
     raw();
+    noecho();
     keypad(stdscr, TRUE);
     nodelay(stdscr, TRUE);
     start_color();
@@ -21,7 +19,9 @@ void Display::NCursesWindow::create(std::string const &title, int framerateLimit
     init_pair(1, COLOR_RED, COLOR_RED);
     init_pair(2, COLOR_GREEN, COLOR_GREEN);
     init_pair(3, COLOR_BLUE, COLOR_BLUE);
-    this->window = newwin(height, width, (winHeight - height) / 2, (winWidth - width) / 2);
+    this->window = newwin(height, width, 0, 0);
+    if (this->window == nullptr)
+        throw std::runtime_error("Failed to create window");
     this->title = title;
     this->width = width;
     this->height = height;
@@ -66,22 +66,22 @@ void Display::NCursesWindow::drawCharacter(int x, int y, char character)
 {
     switch (character) {
         case 'P':
-            attron(COLOR_PAIR(1));
-            mvaddch(y, x, ' ');
-            attroff(COLOR_PAIR(1));
+            wattron(this->window, COLOR_PAIR(1));
+            mvwaddch(this->window, y, x, ' ');
+            wattroff(this->window, COLOR_PAIR(1));
             break;
         case 'G':
-            attron(COLOR_PAIR(2));
-            mvaddch(y, x, ' ');
-            attroff(COLOR_PAIR(2));
+            wattron(this->window, COLOR_PAIR(2));
+            mvwaddch(this->window, y, x, ' ');
+            wattroff(this->window, COLOR_PAIR(2));
             break;
         case '#':
-            attron(COLOR_PAIR(3));
-            mvaddch(y, x, ' ');
-            attroff(COLOR_PAIR(3));
+            wattron(this->window, COLOR_PAIR(3));
+            mvwaddch(this->window, y, x, ' ');
+            wattroff(this->window, COLOR_PAIR(3));
             break;
         default:
-            mvaddch(y, x, character);
+            mvwaddch(this->window, y, x, character);
             break;
     }
 }
@@ -94,8 +94,10 @@ void Display::NCursesWindow::display()
 void Display::NCursesWindow::close()
 {
     this->clear();
-    if (this->window != nullptr)
+    if (this->window != nullptr) {
         delwin(this->window);
+        this->window = nullptr;
+    }
     endwin();
 }
 
@@ -114,17 +116,15 @@ std::string Display::NCursesWindow::getTitle()
     return "";
 }
 
-Display::NCursesWindow::NCursesWindow()
+Display::NCursesWindow::NCursesWindow() : window(nullptr)
 {
-    return;
 }
 
 Display::NCursesWindow::~NCursesWindow()
 {
-    return;
 }
 
-extern "C" std::unique_ptr<Display::IWindow> createWindow()
+extern "C" std::unique_ptr<Display::NCursesWindow> createWindow()
 {
     return std::make_unique<Display::NCursesWindow>();
 }

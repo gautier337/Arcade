@@ -4,6 +4,7 @@
 #include <vector>
 #include <filesystem>
 #include "../../graphics/include/IWindow.hpp"
+#include "../../graphics/include/IClock.hpp"
 #include "../../graphics/include/ISprite.hpp"
 #include "../../graphics/include/ITexture.hpp"
 #include "../../games/include/IGameModule.hpp"
@@ -38,21 +39,36 @@ int main(int argc, char **argv)
             "lib/arcade_nibler.so"
         };
 
+    typedef std::unique_ptr<Display::IClock> (*CreateClockModuleFunction)();
+    CreateClockModuleFunction createClockModule = reinterpret_cast<CreateClockModuleFunction>(graphicsLibraryHandler.getSymbol("createClock"));
+
+    if (!createClockModule)
+        return 84;
+
+    std::unique_ptr<Display::IClock> clockModule = createClockModule();
+
     bool isRunning = true;
     int startX = 0;
     size_t gameIndex = 0;
 
-    displayModules[0]->create("Menu", 60, 800, 400);
+    displayModules[0]->create("Menu", 60, 156, 40);
     while (isRunning) {
-        displayModules[0]->clear();
+        if (clockModule->getElapsedTime() > 1000) {
+            displayModules[0]->clear();
+            for (size_t i = 0; i < games.size(); ++i) {
+                startX = games[i].length() - 1;
+                for (size_t j = 0; j < games[i].length(); ++j)
+                    displayModules[0]->drawCharacter(startX + j, i, games[i][j]);
 
-        for (size_t i = 0; i < games.size(); ++i) {
-            startX = games[i].length() - 1;
-            for (size_t j = 0; j < games[i].length(); ++j)
-                displayModules[0]->drawCharacter(startX + j, i, games[i][j]);
+                if (i == gameIndex) {
+                    displayModules[0]->drawCharacter(startX - 3, i, '-');
+                    displayModules[0]->drawCharacter(startX - 2, i, '>');
+                }
+            }
+            displayModules[0]->display();
+            clockModule->restart();
         }
 
-        displayModules[0]->display();
         Display::KeyType event = displayModules[0]->getEvent();
 
         if (event == Display::KeyType::Z) {
@@ -80,8 +96,10 @@ int main(int argc, char **argv)
             std::vector<std::unique_ptr<Display::IWindow>> new_display_module_vector;
             new_display_module_vector.push_back(std::move(new_display_module));
 
+            displayModules[0]->clear();
             displayModules[0]->close();
             gameModule->init(new_display_module_vector);
+            displayModules[0]->create("Menu", 60, 156, 40);
         } else if (event == Display::KeyType::X) {
             isRunning = false;
         }
