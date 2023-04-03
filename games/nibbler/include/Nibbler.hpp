@@ -28,7 +28,7 @@ class Nibbler : public IGameModule {
         std::pair<int, int> find_Nibbler_position(const std::vector<std::string> &map);
         std::vector<std::string> _map;
         bool moveNibbler(std::string direction);
-        bool check_wall_collision(const std::vector<std::string> &map, size_t row, size_t col);
+        bool bounce_when_touch_wall(const std::vector<std::string> &map, size_t row, size_t col);
         std::string _current_direction = "RIGHT";
         std::deque<std::pair<int, int>> _Nibbler_body;
         bool check_self_collision(int row, int col);

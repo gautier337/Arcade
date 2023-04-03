@@ -58,12 +58,32 @@ std::vector<std::string> Nibbler::load_map()
     return array;
 }
 
-bool Nibbler::check_wall_collision(const std::vector<std::string> &map, size_t row, size_t col)
+bool Nibbler::bounce_when_touch_wall(const std::vector<std::string> &map, size_t row, size_t col)
 {
-    if (row >= map.size() || col >= map[row].length())
-        return true;
-    return map[row][col] == '#';
+    // Check for collision with right wall
+    if (map[row][col + 1] == '#') {
+        _current_direction = "UP";
+        return false;
+    }
+    // Check for collision with bottom wall
+    if (map[row + 1][col] == '#') {
+        _current_direction = "LEFT";
+        return false;
+    }
+    // Check for collision with left wall
+    if (col > 0 && map[row][col - 1] == '#') {
+        _current_direction = "UP";
+        return false;
+    }
+    // Check for collision with top wall
+    if (row > 0 && map[row - 1][col] == '#') {
+        _current_direction = "RIGHT";
+        return false;
+    }
+    return false;
 }
+
+
 
 bool Nibbler::check_self_collision(int row, int col)
 {
@@ -109,7 +129,7 @@ bool Nibbler::moveNibbler(std::string direction)
     int new_row = _Nibbler_body.front().first + row_offset;
     int new_col = _Nibbler_body.front().second + col_offset;
 
-    if (check_wall_collision(_map, new_row, new_col) || check_self_collision(new_row, new_col))
+    if (bounce_when_touch_wall(_map, new_row, new_col) || check_self_collision(new_row, new_col))
         return true;
 
     bool ate_apple = _map[new_row][new_col] == 'G';
