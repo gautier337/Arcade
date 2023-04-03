@@ -5,7 +5,7 @@
 ** Snake
 */
 
-#include "../include/Snake.hpp"
+#include "../include/snake.hpp"
 #include <unistd.h>
 #include <chrono>
 #include <thread>
@@ -16,12 +16,10 @@
 
 Snake::Snake()
 {
-    std::cout << "Snake constructor called" << std::endl;
 }
 
 Snake::~Snake()
 {
-    std::cout << "Snake game destroyed" << std::endl;
 }
 
 std::pair<int, int> Snake::find_snake_position(const std::vector<std::string> &map)
@@ -80,7 +78,7 @@ void Snake::init(std::vector<std::unique_ptr<Display::IWindow>> &windows)
         return;
     }
     _window = std::move(windows[0]);
-    _window->create("test", 60, 800, 400);
+    _window->create("Snake", 60, 1920, 1080);
     std::pair<int, int> snake_head = find_snake_position(load_map());
     _snake_body.push_front(snake_head);
     _snake_body.push_front(std::make_pair(snake_head.first, snake_head.second + 1));

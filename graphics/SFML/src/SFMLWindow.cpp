@@ -14,14 +14,30 @@ Display::SFMLWindow::SFMLWindow()
 
 Display::SFMLWindow::~SFMLWindow()
 {
-    close();
+    std::cout << "SFML Window destucteur" << "Title" << _title << std::endl;
 }
 
 void Display::SFMLWindow::setupColorMap()
 {
+    sf::Color whiteColor = sf::Color::White;
+    for (char letter = '0'; letter <= '9'; ++letter) {
+        _colorMap[letter] = whiteColor;
+    }
+
+    for (char letter = 'A'; letter <= 'Z'; ++letter) {
+        _colorMap[letter] = whiteColor;
+    }
+
+    for (char letter = 'a'; letter <= 'z'; ++letter) {
+        _colorMap[letter] = whiteColor;
+    }
     _colorMap['P'] = sf::Color::Red;
     _colorMap['G'] = sf::Color::Green;
     _colorMap['#'] = sf::Color::Blue;
+    _colorMap['.'] = sf::Color::White;
+    _colorMap[':'] = sf::Color::White;
+    _colorMap['-'] = sf::Color::White;
+    _colorMap['>'] = sf::Color::White;
 }
 
 void Display::SFMLWindow::create(std::string const &title, int framerateLimit, int width, int height)
@@ -36,7 +52,7 @@ void Display::SFMLWindow::create(std::string const &title, int framerateLimit, i
 Display::KeyType Display::SFMLWindow::getEvent()
 {
     sf::Event event;
-    while (_window.pollEvent(event)) {
+    while (isOpen() && _window.pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
             close();
             return Display::KeyType::X;
@@ -54,6 +70,8 @@ Display::KeyType Display::SFMLWindow::getEvent()
                 return Display::KeyType::Q;
             case sf::Keyboard::D:
                 return Display::KeyType::D;
+            case sf::Keyboard::E:
+                return Display::KeyType::E;
             default:
                 break;
             }
@@ -95,16 +113,23 @@ void Display::SFMLWindow::display()
 
 void Display::SFMLWindow::close()
 {
+    if (_window.isOpen()) {
+        _window.clear();
+        _window.display();
+    }
     _window.close();
 }
 
 void Display::SFMLWindow::drawCharacter(int x, int y, char character)
 {
-    float size = 18;
-    sf::RectangleShape shape(sf::Vector2f(size, size));
-    shape.setFillColor(_colorMap[character]);
-    shape.setPosition(x * size, y * size);
-    _window.draw(shape);
+    float fontSize = 18;
+    sf::Text text;
+    text.setFont(_font);
+    text.setCharacterSize(fontSize);
+    text.setFillColor(_colorMap[character]);
+    text.setPosition(x * fontSize, y * fontSize);
+    text.setString(character);
+    _window.draw(text);
 }
 
 extern "C" std::unique_ptr<Display::IWindow> createWindow()
