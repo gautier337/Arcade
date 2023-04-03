@@ -9,8 +9,6 @@
 
 Display::SFMLClock::SFMLClock()
 {
-    sf::Clock clock;
-    _clock = clock;
 }
 
 Display::SFMLClock::~SFMLClock()
