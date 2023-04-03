@@ -38,52 +38,52 @@ std::pair<int, int> Nibbler::find_Nibbler_position(const std::vector<std::string
 std::vector<std::string> Nibbler::load_map()
 {
     std::vector<std::string> array = {
-        "######################################",
-        "#                                    #",
-        "#                                    #",
-        "#                                    #",
-        "#                                    #",
-        "#                                    #",
-        "#                                    #",
-        "#                                    #",
-        "#                                    #",
-        "#                                    #",
-        "#           P                        #",
-        "#                                    #",
-        "#                                    #",
-        "#                     G              #",
-        "#                                    #",
-        "######################################"};
+        "##################################################",
+        "#                                                #",             
+        "#    #####       #    ######     #     #####     #",
+        "#                #               #               #",
+        "#    #####       #    ######     #     #####     #",
+        "#    #                                     #     #",
+        "#    #                                     #     #",
+        "#                                                #",
+        "#                                                #",
+        "#                                                #",
+        "#                                                #",
+        "#    #                                     #     #",
+        "#    #      P                              #     #",
+        "#    #####       #    ######     #     #####     #",
+        "#                #               #               #",
+        "#    #####       #    ######     #     #####     #",
+        "#                                                #",
+        "##################################################"};
 
     return array;
 }
 
 bool Nibbler::bounce_when_touch_wall(const std::vector<std::string> &map, size_t row, size_t col)
 {
-    // Check for collision with right wall
+    //right wall
     if (map[row][col + 1] == '#') {
         _current_direction = "UP";
         return false;
     }
-    // Check for collision with bottom wall
+    //bottom wall
     if (map[row + 1][col] == '#') {
-        _current_direction = "LEFT";
-        return false;
-    }
-    // Check for collision with left wall
-    if (col > 0 && map[row][col - 1] == '#') {
-        _current_direction = "UP";
-        return false;
-    }
-    // Check for collision with top wall
-    if (row > 0 && map[row - 1][col] == '#') {
         _current_direction = "RIGHT";
+        return false;
+    }
+    //left wall
+    if (col > 0 && map[row][col - 1] == '#') {
+        _current_direction = "DOWN";
+        return false;
+    }
+    //top wall
+    if (row > 0 && map[row - 1][col] == '#') {
+        _current_direction = "LEFT";
         return false;
     }
     return false;
 }
-
-
 
 bool Nibbler::check_self_collision(int row, int col)
 {
