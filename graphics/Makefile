@@ -28,7 +28,7 @@ all: $(GRAPHIC_TARGET)
 ../lib/arcade_sfml.so: $(GRAPHIC_OBJ_SF)
 	$(CXX) -shared $(CXXFLAGS) -o $@ $^ $(LDFLAGS_SF)
 
-../lib/arcade_sdl2.so: $(GRAPHIC_OBJ_SF)
+../lib/arcade_sdl2.so: $(GRAPHIC_OBJ_SDL2)
 	$(CXX) -shared $(CXXFLAGS) -o $@ $^ $(LDFLAGS_SDL2)
 
 %.o: %.cpp

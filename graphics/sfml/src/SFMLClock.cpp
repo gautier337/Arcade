@@ -26,7 +26,7 @@ void Display::SFMLClock::restart()
     _clock.restart();
 }
 
-extern "C" std::unique_ptr<Display::IClock> createClock()
+extern "C" std::unique_ptr<Display::IClock> createClockk()
 {
     return std::make_unique<Display::SFMLClock>();
 }
