@@ -78,7 +78,7 @@ void Snake::init(std::vector<std::unique_ptr<Display::IWindow>> &windows)
         return;
     }
     _window = std::move(windows[0]);
-    _window->create("Snake", 60, 156, 40);
+    _window->create("Snake", 60, 1920, 1080);
     std::pair<int, int> snake_head = find_snake_position(load_map());
     _snake_body.push_front(snake_head);
     _snake_body.push_front(std::make_pair(snake_head.first, snake_head.second + 1));
@@ -178,9 +178,12 @@ void Snake::updateGame()
         if (key == Display::KeyType::D)
             _current_direction = "RIGHT";
         collision = moveSnake(_current_direction);
-        for (size_t i = 0; i != _map.size(); i++)
-            for (size_t j = 0; j != _map[i].length(); j++)
+        for (size_t i = 0; i != _map.size(); i++) {
+            for (size_t j = 0; j != _map[i].length(); j++) {
                 _window->drawCharacter(j, i + 2, _map[i][j]);
+                std::cout << _map[i][j] << "i:" << i << "j: "<< j << std::endl;
+            }
+        }
         drawScore();
         _window->display();
         auto end = std::chrono::steady_clock::now();

@@ -14,14 +14,35 @@ Display::SFMLWindow::SFMLWindow()
 
 Display::SFMLWindow::~SFMLWindow()
 {
-    close();
+    std::cout << "SFML Window destucteur" << "Title" << _title << std::endl;
 }
 
 void Display::SFMLWindow::setupColorMap()
 {
+    sf::Color whiteColor = sf::Color::White;
+    _colorMap[':'] = sf::Color::White;
+    _colorMap['0'] = sf::Color::White;
+    _colorMap['1'] = sf::Color::White;
+    _colorMap['2'] = sf::Color::White;
+    _colorMap['3'] = sf::Color::White;
+    _colorMap['4'] = sf::Color::White;
+    _colorMap['5'] = sf::Color::White;
+    _colorMap['6'] = sf::Color::White;
+    _colorMap['7'] = sf::Color::White;
+    _colorMap['8'] = sf::Color::White;
+    _colorMap['9'] = sf::Color::White;
+
+    for (char letter = 'A'; letter <= 'Z'; ++letter) {
+        _colorMap[letter] = whiteColor;
+    }
+
+    for (char letter = 'a'; letter <= 'z'; ++letter) {
+        _colorMap[letter] = whiteColor;
+    }
     _colorMap['P'] = sf::Color::Red;
     _colorMap['G'] = sf::Color::Green;
     _colorMap['#'] = sf::Color::Blue;
+    _colorMap['.'] = sf::Color::White;
 }
 
 void Display::SFMLWindow::create(std::string const &title, int framerateLimit, int width, int height)
@@ -104,11 +125,14 @@ void Display::SFMLWindow::close()
 
 void Display::SFMLWindow::drawCharacter(int x, int y, char character)
 {
-    float size = 18;
-    sf::RectangleShape shape(sf::Vector2f(size, size));
-    shape.setFillColor(_colorMap[character]);
-    shape.setPosition(x * size, y * size);
-    _window.draw(shape);
+    float fontSize = 18;
+    sf::Text text;
+    text.setFont(_font);
+    text.setCharacterSize(fontSize);
+    text.setFillColor(_colorMap[character]);
+    text.setPosition(x * fontSize, y * fontSize);
+    text.setString(character);
+    _window.draw(text);
 }
 
 extern "C" std::unique_ptr<Display::IWindow> createWindow()
