@@ -18,7 +18,7 @@ Display::SFMLClock::~SFMLClock()
 int Display::SFMLClock::getElapsedTime()
 {
     sf::Time elapsed_time = _clock.getElapsedTime();
-    return elapsed_time.asMilliseconds();
+    return elapsed_time.asMilliseconds() * 100;
 }
 
 void Display::SFMLClock::restart()
