@@ -38,30 +38,40 @@ std::pair<int, int> Nibbler::find_Nibbler_position(const std::vector<std::string
 std::vector<std::string> Nibbler::load_map()
 {
     std::vector<std::string> array = {
-        "##################################################",
-        "#                                                #",             
-        "#    #####       #    ######     #     #####     #",
-        "#                #               #               #",
-        "#    #####       #    ######     #     #####     #",
-        "#    #                                     #     #",
-        "#    #                                     #     #",
-        "#                                                #",
-        "#                                                #",
-        "#                                                #",
-        "#                                                #",
-        "#    #                                     #     #",
-        "#    #      P                              #     #",
-        "#    #####       #    ######     #     #####     #",
-        "#                #               #               #",
-        "#    #####       #    ######     #     #####     #",
-        "#                                                #",
-        "##################################################"};
+        "################################################",
+        "#                                              #",             
+        "#   #####       #    ######     #     #####    #",
+        "#     G         #      G        #       G      #",
+        "#   #####       #    ######     #     #####    #",
+        "#   #                                     #    #",
+        "#   #    ####        ######      #####    #    #",
+        "#        #           #    #          #         #",
+        "#        #      #    ######     #    #         #",
+        "#               #      G        #              #",
+        "#        #      #    ######     #    #         #",
+        "#        #           #    #          #         #",
+        "#   #    ####        ######      #####    #    #",
+        "#   #      P                              #    #",
+        "#   #####       #    ######     #     #####    #",
+        "#     G         #      G        #       G      #",
+        "#   #####       #    ######     #     #####    #",
+        "#                                              #",
+        "################################################"};
 
     return array;
 }
 
 bool Nibbler::bounce_when_touch_wall(const std::vector<std::string> &map, size_t row, size_t col)
 {
+    // top right corner
+    if (map[row - 1][col] == '#' && map[row][col + 1] == '#') {
+        _current_direction = "LEFT";
+        return false;
+    }
+    //check tunnel
+    if (map[row - 1][col] == '#' && map[row + 1][col] == '#') {
+        return false;
+    }
     //right wall
     if (map[row][col + 1] == '#') {
         _current_direction = "UP";
@@ -73,12 +83,12 @@ bool Nibbler::bounce_when_touch_wall(const std::vector<std::string> &map, size_t
         return false;
     }
     //left wall
-    if (col > 0 && map[row][col - 1] == '#') {
+    if (map[row][col - 1] == '#') {
         _current_direction = "DOWN";
         return false;
     }
     //top wall
-    if (row > 0 && map[row - 1][col] == '#') {
+    if (map[row - 1][col] == '#') {
         _current_direction = "LEFT";
         return false;
     }
@@ -141,7 +151,6 @@ bool Nibbler::moveNibbler(std::string direction)
     if (!ate_apple)
         _Nibbler_body.pop_back();
     else {
-        place_apple();
         _score++;
     }
     return false;
@@ -154,25 +163,6 @@ void Nibbler::drawScore()
 
     for (size_t i = 0; i != scoreText.length(); i++)
         _window->drawCharacter(startX + i, 0, scoreText[i]);
-}
-
-void Nibbler::place_apple()
-{
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> row_dist(1, _map.size() - 2);
-    std::uniform_int_distribution<> col_dist(1, _map[0].length() - 2);
-    int row = 0, col = 0;
-    bool placed = false;
-
-    while (!placed) {
-        row = row_dist(gen);
-        col = col_dist(gen);
-        if (_map[row][col] == ' ') {
-            _map[row][col] = 'G';
-            placed = true;
-        }
-    }
 }
 
 void Nibbler::updateGame()

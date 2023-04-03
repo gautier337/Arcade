@@ -32,7 +32,6 @@ class Nibbler : public IGameModule {
         std::string _current_direction = "RIGHT";
         std::deque<std::pair<int, int>> _Nibbler_body;
         bool check_self_collision(int row, int col);
-        void place_apple();
         int _score;
         void drawScore();
 };
