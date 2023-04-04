@@ -127,21 +127,20 @@ int main(int argc, char **argv)
 
             auto gameModule = createGameModule();
             auto argv_one_display_module_game = create_display_module(argv_one_library_dynamic);
-            auto ncurses_display_module = create_display_module(ncurses_library_dynamic);
-            auto sdl2_display_module = create_display_module(sdl2_library_dynamic);
-            auto sfml_display_module = create_display_module(sfml_library_dynamic);
+            auto ncurses_display_module_game = create_display_module(ncurses_library_dynamic);
+            auto sdl2_display_module_game = create_display_module(sdl2_library_dynamic);
+            auto sfml_display_module_game = create_display_module(sfml_library_dynamic);
 
             std::vector<std::unique_ptr<Display::IWindow>> new_display_module_vector;
             new_display_module_vector.push_back(std::move(argv_one_display_module_game));
-            new_display_module_vector.push_back(std::move(ncurses_display_module));
-            new_display_module_vector.push_back(std::move(sfml_display_module));
-            new_display_module_vector.push_back(std::move(sdl2_display_module));
+            new_display_module_vector.push_back(std::move(ncurses_display_module_game));
+            new_display_module_vector.push_back(std::move(sfml_display_module_game));
+            new_display_module_vector.push_back(std::move(sdl2_display_module_game));
 
-            argv_one_display_module->clear();
-            argv_one_display_module->close();
+            display_module_vector_menu[idx_menu_graph]->clear();
+            display_module_vector_menu[idx_menu_graph]->close();
 
             gameModule->init(new_display_module_vector);
-
             display_module_vector_menu[idx_menu_graph]->create("Menu", 60, 1920, 1080);
         } else if (event == Display::KeyType::X) {
             isRunning = false;
