@@ -236,14 +236,13 @@ void Nibbler::updateGame()
 
 void Nibbler::change_windows()
 {
-    if (!_windows[_window_index + 1]) {
+    _window_index++;
+    if (_window_index >= static_cast<int>(_windows.size()))
         _window_index = 0;
-    } else
-        _window_index++;
     _window->close();
     _window = nullptr;
     _window = std::move(_windows[_window_index]);
-    _window->create("Snake", 60, 1920, 1080);
+    _window->create("Nibbler", 60, 1920, 1080);
 }
 
 void Nibbler::stop()
