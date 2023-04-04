@@ -138,7 +138,8 @@ void Nibbler::init(std::vector<std::unique_ptr<Display::IWindow>> &windows)
         std::cout << "No window available" << std::endl;
         return;
     }
-    _window = std::move(windows[0]);
+    _windows = std::move(windows);
+    _window = _windows[0].get();
     _window->create("Nibbler", 60, 1920, 1080);
     std::pair<int, int> Nibbler_head = find_Nibbler_position(load_map());
     _Nibbler_body.push_front(Nibbler_head);
@@ -242,9 +243,8 @@ void Nibbler::change_windows()
     if (_window_index >= static_cast<int>(_windows.size()))
         _window_index = 0;
     _window->close();
-    _window = nullptr;
-    _window = std::move(_windows[_window_index]);
-    _window->create("Nibbler", 60, 1920, 1080);
+    _window = _windows[_window_index].get();
+    _window->create("Snake", 60, 1920, 1080);
 }
 
 void Nibbler::stop()

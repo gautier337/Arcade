@@ -78,7 +78,7 @@ void Snake::init(std::vector<std::unique_ptr<Display::IWindow>> &windows)
         return;
     }
     _windows = std::move(windows);
-    _window = std::move(_windows[0]);
+    _window = _windows[0].get();
     _window->create("Snake", 60, 1920, 1080);
     std::pair<int, int> snake_head = find_snake_position(load_map());
     _snake_body.push_front(snake_head);
@@ -200,8 +200,7 @@ void Snake::change_windows()
     if (_window_index >= static_cast<int>(_windows.size()))
         _window_index = 0;
     _window->close();
-    _window = nullptr;
-    _window = std::move(_windows[_window_index]);
+    _window = _windows[_window_index].get();
     _window->create("Snake", 60, 1920, 1080);
 }
 

@@ -23,7 +23,7 @@ class Snake : public IGameModule {
         void updateGame() override;
         void stop() override;
     private:
-        std::unique_ptr<Display::IWindow> _window;
+        Display::IWindow *_window;
         std::vector<std::unique_ptr<Display::IWindow>> _windows;
         std::vector<std::string> load_map();
         std::pair<int, int> find_snake_position(const std::vector<std::string> &map);
