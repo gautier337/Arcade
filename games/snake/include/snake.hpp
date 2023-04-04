@@ -24,6 +24,7 @@ class Snake : public IGameModule {
         void stop() override;
     private:
         std::unique_ptr<Display::IWindow> _window;
+        std::vector<std::unique_ptr<Display::IWindow>> _windows;
         std::vector<std::string> load_map();
         std::pair<int, int> find_snake_position(const std::vector<std::string> &map);
         std::vector<std::string> _map;
@@ -35,4 +36,5 @@ class Snake : public IGameModule {
         void place_apple();
         int _score;
         void drawScore();
+        void change_windows();
 };

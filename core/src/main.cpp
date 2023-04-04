@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2023
+** main arcade
+** File description:
+** main
+*/
+
 #include <iostream>
 #include <string>
 #include <memory>
@@ -38,10 +45,14 @@ int main(int argc, char **argv)
     std::string graphicsLibraryPath = argv[1];
 
     DynamicLibraryHandler argv_one_library_dynamic = load_dynamic_library(graphicsLibraryPath);
+    DynamicLibraryHandler ncurses_library_dynamic = load_dynamic_library("lib/arcade_ncurses.so");
+
     std::unique_ptr<Display::IWindow> argv_one_display_module = create_display_module(argv_one_library_dynamic);
+    std::unique_ptr<Display::IWindow> ncurses_display_module = create_display_module(ncurses_library_dynamic);
 
     std::vector<std::unique_ptr<Display::IWindow>> displayModules;
     displayModules.push_back(std::move(argv_one_display_module));
+    displayModules.push_back(std::move(ncurses_display_module));
 
     std::vector<std::string> games = {"lib/arcade_snake.so", "lib/arcade_nibbler.so"};
 
