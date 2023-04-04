@@ -121,14 +121,22 @@ void Display::SFMLWindow::close()
 
 void Display::SFMLWindow::drawCharacter(int x, int y, char character)
 {
-    float fontSize = 18;
-    sf::Text text;
-    text.setFont(_font);
-    text.setCharacterSize(fontSize);
-    text.setFillColor(_colorMap[character]);
-    text.setPosition(x * fontSize, y * fontSize);
-    text.setString(character);
-    _window.draw(text);
+    float size = 18;
+    if (character != '#' && character != 'P' && character != 'G') {
+        sf::Text text;
+        text.setFont(_font);
+        text.setCharacterSize(size);
+        text.setFillColor(_colorMap[character]);
+        text.setPosition(x * size, y * size);
+        text.setString(character);
+        _window.draw(text);
+    }
+    else {
+        sf::RectangleShape shape(sf::Vector2f(size, size));
+        shape.setFillColor(_colorMap[character]);
+        shape.setPosition(x * size, y * size);
+        _window.draw(shape);
+    }
 }
 
 extern "C" std::unique_ptr<Display::IWindow> createWindow()

@@ -51,26 +51,9 @@ int main(int argc, char **argv)
     int startX = 0;
     size_t gameIndex = 0;
 
-    // DynamicLibraryHandler gameLibraryHandler;
-    // if (!gameLibraryHandler.loadLibrary(games[gameIndex]))
-    //     return 84;
-    // typedef std::unique_ptr<IGameModule> (*CreateGameModuleFunction)();
-    // CreateGameModuleFunction createGameModule = reinterpret_cast<CreateGameModuleFunction>(gameLibraryHandler.getSymbol("createGame"));
-    // if (!createGameModule)
-    //     return 84;
-    // std::unique_ptr<IGameModule> gameModule = createGameModule();
-    // std::unique_ptr<Display::IWindow> new_display_module = createDisplayModule();
-    // std::vector<std::unique_ptr<Display::IWindow>> new_display_module_vector;
-    // new_display_module_vector.push_back(std::move(new_display_module));
-    // displayModules[0]->clear();
-    // displayModules[0]->close();
-    // gameModule->init(new_display_module_vector);
-
     displayModules[0]->create("Menu", 60, 1920, 1080);
     while (isRunning) {
-        // std::cout << "debut boucle" << std::endl;
         if (clockModule != nullptr && clockModule->getElapsedTime() > 1000) {
-            // std::cout << "timer" << std::endl;
             displayModules[0]->clear();
             for (size_t i = 0; i < games.size(); ++i) {
                 startX = 5;
@@ -121,7 +104,6 @@ int main(int argc, char **argv)
         } else if (event == Display::KeyType::X) {
             isRunning = false;
         }
-        // std::cout << "fin boucle" << std::endl;
     }
     return 0;
 }

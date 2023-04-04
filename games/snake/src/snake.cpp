@@ -194,7 +194,6 @@ void Snake::updateGame()
 void Snake::stop()
 {
     _window->close();
-    std::cout << "Snake game stopped" << std::endl;
 }
 
 extern "C" std::unique_ptr<IGameModule> createGame() {

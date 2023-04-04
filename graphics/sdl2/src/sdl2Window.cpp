@@ -89,11 +89,10 @@ void Display::SDL2Window::drawCharacter(int x, int y, char character)
             SDL_SetRenderDrawColor(this->renderer, 0, 255, 0, 255);
             break;
         default:
-                // Render text for other characters
                 SDL_Surface *textSurface;
                 SDL_Texture *textTexture;
-                SDL_Color textColor = {255, 255, 255, 255}; // White color for text
-                TTF_Font *font = TTF_OpenFont("font/arial.ttf", 15); // Replace "path/to/font.ttf" with the path to your font file
+                SDL_Color textColor = {255, 255, 255, 255};
+                TTF_Font *font = TTF_OpenFont("font/arial.ttf", 15);
 
                 if (font == nullptr) {
                     throw std::runtime_error("Failed to load font");
@@ -105,7 +104,6 @@ void Display::SDL2Window::drawCharacter(int x, int y, char character)
 
                 SDL_RenderCopy(this->renderer, textTexture, nullptr, &rect);
 
-                // Clean up
                 SDL_DestroyTexture(textTexture);
                 SDL_FreeSurface(textSurface);
                 TTF_CloseFont(font);
