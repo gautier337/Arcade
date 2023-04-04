@@ -75,6 +75,7 @@ void Snake::set_value_game()
 {
     _map = load_map();
     std::pair<int, int> snake_head = find_snake_position(_map);
+    _snake_body.clear();
     _snake_body.push_front(snake_head);
     _snake_body.push_front(std::make_pair(snake_head.first, snake_head.second + 1));
     _snake_body.push_front(std::make_pair(snake_head.first, snake_head.second + 2));

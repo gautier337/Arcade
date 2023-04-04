@@ -133,6 +133,7 @@ bool Nibbler::check_self_collision(int row, int col)
 void Nibbler::set_value_game()
 {
     std::pair<int, int> Nibbler_head = find_Nibbler_position(load_map());
+    _Nibbler_body.clear();
     _Nibbler_body.push_front(Nibbler_head);
     _Nibbler_body.push_front(std::make_pair(Nibbler_head.first, Nibbler_head.second + 1));
     _Nibbler_body.push_front(std::make_pair(Nibbler_head.first, Nibbler_head.second + 2));
