@@ -46,6 +46,7 @@ int main(int argc, char **argv)
 
     DynamicLibraryHandler argv_one_library_dynamic = load_dynamic_library(graphicsLibraryPath);
     DynamicLibraryHandler ncurses_library_dynamic = load_dynamic_library("lib/arcade_ncurses.so");
+    DynamicLibraryHandler sdl2_library_dynamic = load_dynamic_library("lib/arcade_sdl2.so");
 
     std::unique_ptr<Display::IWindow> argv_one_display_module = create_display_module(argv_one_library_dynamic);
     std::unique_ptr<Display::IWindow> ncurses_display_module = create_display_module(ncurses_library_dynamic);
@@ -110,10 +111,12 @@ int main(int argc, char **argv)
             std::unique_ptr<IGameModule> gameModule = createGameModule();
             std::unique_ptr<Display::IWindow> new_display_module = create_display_module(argv_one_library_dynamic);
             std::unique_ptr<Display::IWindow> ncurses_display_module = create_display_module(ncurses_library_dynamic);
+            std::unique_ptr<Display::IWindow> sdl2_display_module = create_display_module(sdl2_library_dynamic);
 
             std::vector<std::unique_ptr<Display::IWindow>> new_display_module_vector;
             new_display_module_vector.push_back(std::move(new_display_module));
             new_display_module_vector.push_back(std::move(ncurses_display_module));
+            new_display_module_vector.push_back(std::move(sdl2_display_module));
 
             displayModules[0]->clear();
             displayModules[0]->close();
