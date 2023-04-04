@@ -5,7 +5,7 @@
 ## arcade
 ##
 
-all: core games graphics
+all: core games graphicals
 
 core:
 	mkdir -p lib
