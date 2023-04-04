@@ -37,4 +37,5 @@ class Nibbler : public IGameModule {
         void drawScore();
         void change_windows();
         int _window_index = 0;
+        void set_value_game();
 };

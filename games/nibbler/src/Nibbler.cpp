@@ -130,6 +130,17 @@ bool Nibbler::check_self_collision(int row, int col)
     return false;
 }
 
+void Nibbler::set_value_game()
+{
+    std::pair<int, int> Nibbler_head = find_Nibbler_position(load_map());
+    _Nibbler_body.push_front(Nibbler_head);
+    _Nibbler_body.push_front(std::make_pair(Nibbler_head.first, Nibbler_head.second + 1));
+    _Nibbler_body.push_front(std::make_pair(Nibbler_head.first, Nibbler_head.second + 2));
+    _Nibbler_body.push_front(std::make_pair(Nibbler_head.first, Nibbler_head.second + 3));
+    _score = 0;
+    _map = load_map();
+}
+
 void Nibbler::init(std::vector<std::unique_ptr<Display::IWindow>> &windows)
 {
     if (windows.empty()) {
@@ -139,13 +150,7 @@ void Nibbler::init(std::vector<std::unique_ptr<Display::IWindow>> &windows)
     _windows = std::move(windows);
     _window = _windows[0].get();
     _window->create("Nibbler", 60, 1920, 1080);
-    std::pair<int, int> Nibbler_head = find_Nibbler_position(load_map());
-    _Nibbler_body.push_front(Nibbler_head);
-    _Nibbler_body.push_front(std::make_pair(Nibbler_head.first, Nibbler_head.second + 1));
-    _Nibbler_body.push_front(std::make_pair(Nibbler_head.first, Nibbler_head.second + 2));
-    _Nibbler_body.push_front(std::make_pair(Nibbler_head.first, Nibbler_head.second + 3));
-    _score = 0;
-    _map = load_map();
+    set_value_game();
     updateGame();
     return;
 }
@@ -221,6 +226,8 @@ void Nibbler::updateGame()
             _current_direction = "RIGHT";
         if (key == Display::KeyType::P)
             change_windows();
+        if (key == Display::KeyType::R)
+            set_value_game();
         collision = moveNibbler(_current_direction);
         for (size_t i = 0; i != _map.size(); i++)
             for (size_t j = 0; j != _map[i].length(); j++)

@@ -71,6 +71,17 @@ bool Snake::check_self_collision(int row, int col)
     return false;
 }
 
+void Snake::set_value_game()
+{
+    _map = load_map();
+    std::pair<int, int> snake_head = find_snake_position(_map);
+    _snake_body.push_front(snake_head);
+    _snake_body.push_front(std::make_pair(snake_head.first, snake_head.second + 1));
+    _snake_body.push_front(std::make_pair(snake_head.first, snake_head.second + 2));
+    _snake_body.push_front(std::make_pair(snake_head.first, snake_head.second + 3));
+    _score = 0;
+}
+
 void Snake::init(std::vector<std::unique_ptr<Display::IWindow>> &windows)
 {
     if (windows.empty()) {
@@ -80,13 +91,7 @@ void Snake::init(std::vector<std::unique_ptr<Display::IWindow>> &windows)
     _windows = std::move(windows);
     _window = _windows[0].get();
     _window->create("Snake", 60, 1920, 1080);
-    std::pair<int, int> snake_head = find_snake_position(load_map());
-    _snake_body.push_front(snake_head);
-    _snake_body.push_front(std::make_pair(snake_head.first, snake_head.second + 1));
-    _snake_body.push_front(std::make_pair(snake_head.first, snake_head.second + 2));
-    _snake_body.push_front(std::make_pair(snake_head.first, snake_head.second + 3));
-    _score = 0;
-    _map = load_map();
+    set_value_game();
     updateGame();
     return;
 }
@@ -178,6 +183,8 @@ void Snake::updateGame()
             _current_direction = "LEFT";
         if (key == Display::KeyType::D)
             _current_direction = "RIGHT";
+        if (key == Display::KeyType::R)
+            set_value_game();
         if (key == Display::KeyType::P)
             change_windows();
         collision = moveSnake(_current_direction);

@@ -53,6 +53,8 @@ Display::KeyType Display::NCursesWindow::getEvent()
             return Display::KeyType::E;
         if (key == 'P' || key == 'p')
             return Display::KeyType::P;
+        if (key == 'R' || key == 'r')
+            return Display::KeyType::R;
     }
     return Display::KeyType::Unknown;
 }

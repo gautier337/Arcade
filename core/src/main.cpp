@@ -126,6 +126,5 @@ int main(int argc, char **argv)
             isRunning = false;
         }
     }
-    std::cout << "fin du programme" << std::endl;
     return 0;
 }

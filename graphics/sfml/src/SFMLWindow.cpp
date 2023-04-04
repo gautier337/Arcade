@@ -14,7 +14,6 @@ Display::SFMLWindow::SFMLWindow()
 
 Display::SFMLWindow::~SFMLWindow()
 {
-    std::cout << "SFML Window destucteur" << "Title" << _title << std::endl;
 }
 
 void Display::SFMLWindow::setupColorMap()
@@ -74,6 +73,8 @@ Display::KeyType Display::SFMLWindow::getEvent()
                 return Display::KeyType::E;
             case sf::Keyboard::P:
                 return Display::KeyType::P;
+            case sf::Keyboard::R:
+                return Display::KeyType::R;
             default:
                 break;
             }

@@ -56,6 +56,8 @@ Display::KeyType Display::SDL2Window::getEvent()
                     return Display::KeyType::E;
                 case SDLK_p:
                     return Display::KeyType::P;
+                case SDLK_r:
+                    return Display::KeyType::R;
                 case SDLK_x:
                     this->close();
                     return Display::KeyType::X;
