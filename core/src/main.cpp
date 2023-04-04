@@ -11,6 +11,24 @@
 #include "../../graphics/ncurses/include/NCursesWindow.hpp"
 #include "DynamicLibraryHandler.hpp"
 
+DynamicLibraryHandler load_dynamic_library(const std::string& graphicsLibraryPath)
+{
+    DynamicLibraryHandler graphicsLibraryHandler;
+    if (!graphicsLibraryHandler.loadLibrary(graphicsLibraryPath))
+        exit(84);
+    return graphicsLibraryHandler;
+}
+
+std::unique_ptr<Display::IWindow> create_display_module(DynamicLibraryHandler& graphicsLibraryHandler)
+{
+    typedef std::unique_ptr<Display::IWindow> (*CreateDisplayModuleFunction)();
+    CreateDisplayModuleFunction display_module =
+        reinterpret_cast<CreateDisplayModuleFunction>(graphicsLibraryHandler.getSymbol("createWindow"));
+    if (!display_module)
+        exit(84);
+    return display_module();
+}
+
 int main(int argc, char **argv)
 {
     if (argc != 2) {
@@ -19,28 +37,16 @@ int main(int argc, char **argv)
     }
     std::string graphicsLibraryPath = argv[1];
 
-    DynamicLibraryHandler graphicsLibraryHandler;
-    if (!graphicsLibraryHandler.loadLibrary(graphicsLibraryPath))
-        return 84;
-
-    typedef std::unique_ptr<Display::IWindow> (*CreateDisplayModuleFunction)();
-    CreateDisplayModuleFunction createDisplayModule = reinterpret_cast<CreateDisplayModuleFunction>(graphicsLibraryHandler.getSymbol("createWindow"));
-
-    if (!createDisplayModule)
-        return 84;
-
-    std::unique_ptr<Display::IWindow> displayModule = createDisplayModule();
+    DynamicLibraryHandler argv_one_library_dynamic = load_dynamic_library(graphicsLibraryPath);
+    std::unique_ptr<Display::IWindow> argv_one_display_module = create_display_module(argv_one_library_dynamic);
 
     std::vector<std::unique_ptr<Display::IWindow>> displayModules;
-    displayModules.push_back(std::move(displayModule));
+    displayModules.push_back(std::move(argv_one_display_module));
 
-    std::vector<std::string> games = {
-            "lib/arcade_snake.so",
-            "lib/arcade_nibbler.so"
-        };
+    std::vector<std::string> games = {"lib/arcade_snake.so", "lib/arcade_nibbler.so"};
 
     typedef std::unique_ptr<Display::IClock> (*CreateClockModuleFunction)();
-    CreateClockModuleFunction createClockModule = reinterpret_cast<CreateClockModuleFunction>(graphicsLibraryHandler.getSymbol("createClock"));
+    CreateClockModuleFunction createClockModule = reinterpret_cast<CreateClockModuleFunction>(argv_one_library_dynamic.getSymbol("createClock"));
 
     if (!createClockModule)
         return 84;
@@ -91,7 +97,7 @@ int main(int argc, char **argv)
                 return 84;
 
             std::unique_ptr<IGameModule> gameModule = createGameModule();
-            std::unique_ptr<Display::IWindow> new_display_module = createDisplayModule();
+            std::unique_ptr<Display::IWindow> new_display_module = create_display_module(argv_one_library_dynamic);
 
             std::vector<std::unique_ptr<Display::IWindow>> new_display_module_vector;
             new_display_module_vector.push_back(std::move(new_display_module));
