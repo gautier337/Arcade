@@ -199,9 +199,9 @@ void Snake::change_windows()
     if (_windows.size() == 1)
         return;
     _window->close();
+    _window = nullptr;
     _window = std::move(_windows[1]);
     _window->create("Snake", 60, 1920, 1080);
-    updateGame();
 }
 
 void Snake::stop()

@@ -109,9 +109,11 @@ int main(int argc, char **argv)
 
             std::unique_ptr<IGameModule> gameModule = createGameModule();
             std::unique_ptr<Display::IWindow> new_display_module = create_display_module(argv_one_library_dynamic);
+            std::unique_ptr<Display::IWindow> ncurses_display_module = create_display_module(ncurses_library_dynamic);
 
             std::vector<std::unique_ptr<Display::IWindow>> new_display_module_vector;
             new_display_module_vector.push_back(std::move(new_display_module));
+            new_display_module_vector.push_back(std::move(ncurses_display_module));
 
             displayModules[0]->clear();
             displayModules[0]->close();
