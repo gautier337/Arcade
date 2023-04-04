@@ -139,7 +139,7 @@ void Nibbler::init(std::vector<std::unique_ptr<Display::IWindow>> &windows)
         return;
     }
     _window = std::move(windows[0]);
-    _window->create("Nibbler", 60, 800, 400);
+    _window->create("Nibbler", 60, 1920, 1080);
     std::pair<int, int> Nibbler_head = find_Nibbler_position(load_map());
     _Nibbler_body.push_front(Nibbler_head);
     _Nibbler_body.push_front(std::make_pair(Nibbler_head.first, Nibbler_head.second + 1));

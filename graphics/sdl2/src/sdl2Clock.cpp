@@ -18,7 +18,7 @@ Display::SDL2Clock::~SDL2Clock()
 
 int Display::SDL2Clock::getElapsedTime()
 {
-    return (SDL_GetTicks() - _start_timer) / 100;
+    return (SDL_GetTicks() - _start_timer) * 1000;
 }
 
 void Display::SDL2Clock::restart()

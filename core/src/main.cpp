@@ -53,20 +53,20 @@ int main(int argc, char **argv)
 
     displayModules[0]->create("Menu", 60, 1920, 1080);
     while (isRunning) {
-        // if (clockModule != nullptr && clockModule->getElapsedTime() > 1000) {
-        displayModules[0]->clear();
-        for (size_t i = 0; i < games.size(); ++i) {
-            startX = 5;
-            for (size_t j = 0; j < games[i].length(); ++j)
-                displayModules[0]->drawCharacter(startX + j, i, games[i][j]);
-            if (i == gameIndex) {
-                displayModules[0]->drawCharacter(startX - 2, i, '-');
-                displayModules[0]->drawCharacter(startX - 2, i, '>');
+        if (clockModule != nullptr && clockModule->getElapsedTime() > 1000) {
+            displayModules[0]->clear();
+            for (size_t i = 0; i < games.size(); ++i) {
+                startX = 5;
+                for (size_t j = 0; j < games[i].length(); ++j)
+                    displayModules[0]->drawCharacter(startX + j, i, games[i][j]);
+                if (i == gameIndex) {
+                    displayModules[0]->drawCharacter(startX - 2, i, '-');
+                    displayModules[0]->drawCharacter(startX - 2, i, '>');
+                }
             }
+            displayModules[0]->display();
+            clockModule->restart();
         }
-        displayModules[0]->display();
-        // clockModule->restart();
-        // }
 
         Display::KeyType event = displayModules[0]->getEvent();
 
