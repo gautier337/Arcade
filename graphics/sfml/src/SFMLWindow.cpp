@@ -103,7 +103,6 @@ void Display::SFMLWindow::clear()
 
 void Display::SFMLWindow::draw()
 {
-    drawCharacter(1, 1, 'P');
 }
 
 void Display::SFMLWindow::display()

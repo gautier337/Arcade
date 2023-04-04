@@ -103,7 +103,6 @@ void Display::NCursesWindow::close()
 
 void Display::NCursesWindow::draw()
 {
-    drawCharacter(1, 1, 'P');
 }
 
 void Display::NCursesWindow::setTitle(std::string const &title)

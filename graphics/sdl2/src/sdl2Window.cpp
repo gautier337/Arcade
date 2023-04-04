@@ -16,6 +16,9 @@ void Display::SDL2Window::create(std::string const &title, int framerateLimit, i
     if (this->window == nullptr)
         throw std::runtime_error("Failed to create window");
 
+    if (TTF_Init() != 0)
+        throw std::runtime_error("Failed to initialize SDL_ttf");
+
     this->renderer = SDL_CreateRenderer(this->window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (this->renderer == nullptr)
         throw std::runtime_error("Failed to create renderer");
@@ -86,7 +89,27 @@ void Display::SDL2Window::drawCharacter(int x, int y, char character)
             SDL_SetRenderDrawColor(this->renderer, 0, 255, 0, 255);
             break;
         default:
-            return;
+                // Render text for other characters
+                SDL_Surface *textSurface;
+                SDL_Texture *textTexture;
+                SDL_Color textColor = {255, 255, 255, 255}; // White color for text
+                TTF_Font *font = TTF_OpenFont("font/arial.ttf", 15); // Replace "path/to/font.ttf" with the path to your font file
+
+                if (font == nullptr) {
+                    throw std::runtime_error("Failed to load font");
+                }
+
+                std::string characterString(1, character);
+                textSurface = TTF_RenderText_Solid(font, characterString.c_str(), textColor);
+                textTexture = SDL_CreateTextureFromSurface(this->renderer, textSurface);
+
+                SDL_RenderCopy(this->renderer, textTexture, nullptr, &rect);
+
+                // Clean up
+                SDL_DestroyTexture(textTexture);
+                SDL_FreeSurface(textSurface);
+                TTF_CloseFont(font);
+                return;
     }
     SDL_RenderFillRect(this->renderer, &rect);
 }
@@ -107,12 +130,12 @@ void Display::SDL2Window::close()
         SDL_DestroyWindow(this->window);
         this->window = nullptr;
     }
+    TTF_Quit();
     SDL_Quit();
 }
 
 void Display::SDL2Window::draw()
 {
-    drawCharacter(1, 1, 'P');
 }
 
 void Display::SDL2Window::setTitle(std::string const &title)

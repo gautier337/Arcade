@@ -68,7 +68,9 @@ int main(int argc, char **argv)
 
     displayModules[0]->create("Menu", 60, 1920, 1080);
     while (isRunning) {
-        if (clockModule->getElapsedTime() > 1000) {
+        // std::cout << "debut boucle" << std::endl;
+        if (clockModule != nullptr && clockModule->getElapsedTime() > 1000) {
+            // std::cout << "timer" << std::endl;
             displayModules[0]->clear();
             for (size_t i = 0; i < games.size(); ++i) {
                 startX = 5;
@@ -112,11 +114,14 @@ int main(int argc, char **argv)
             std::vector<std::unique_ptr<Display::IWindow>> new_display_module_vector;
             new_display_module_vector.push_back(std::move(new_display_module));
 
+            displayModules[0]->clear();
+            displayModules[0]->close();
             gameModule->init(new_display_module_vector);
-            // displayModules[0]->create("Menu", 60, 1920, 1080);
+            displayModules[0]->create("Menu", 60, 1920, 1080);
         } else if (event == Display::KeyType::X) {
             isRunning = false;
         }
+        // std::cout << "fin boucle" << std::endl;
     }
     return 0;
 }
