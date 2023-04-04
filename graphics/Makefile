@@ -35,7 +35,7 @@ all: $(GRAPHIC_TARGET)
 	$(CXX) $(CXXFLAGS) -Iinclude -c $< -o $@
 
 clean:
-	rm -f $(GRAPHIC_OBJ_NC) $(GRAPHIC_OBJ_SF)
+	rm -f $(GRAPHIC_OBJ_NC) $(GRAPHIC_OBJ_SF) $(GRAPHIC_OBJ_SDL2)
 
 fclean: clean
 	rm -f $(GRAPHIC_TARGET)

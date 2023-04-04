@@ -34,16 +34,13 @@ void Display::SDL2Window::clear()
 Display::KeyType Display::SDL2Window::getEvent()
 {
     SDL_Event event;
-    while (SDL_PollEvent(&event))
-    {
-        switch (event.type)
-        {
+    while (SDL_PollEvent(&event)) {
+        switch (event.type) {
         case SDL_QUIT:
             this->close();
             return Display::KeyType::X;
         case SDL_KEYDOWN:
-            switch (event.key.keysym.sym)
-            {
+            switch (event.key.keysym.sym) {
                 case SDLK_z:
                     return Display::KeyType::Z;
                 case SDLK_s:
@@ -72,30 +69,27 @@ bool Display::SDL2Window::isOpen()
 void Display::SDL2Window::drawCharacter(int x, int y, char character)
 {
     SDL_Rect rect;
-    rect.x = x * 10;
-    rect.y = y * 10;
-    rect.w = 10;
-    rect.h = 10;
+    rect.x = x * 15;
+    rect.y = y * 15;
+    rect.w = 15;
+    rect.h = 15;
 
-    // Définir la couleur pour toutes les lettres (par exemple, vert)
-    SDL_SetRenderDrawColor(this->renderer, 0, 255, 0, 255);
-
-    switch (character)
-    {
+    SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 255);
+    switch (character) {
         case 'P':
             SDL_SetRenderDrawColor(this->renderer, 255, 0, 0, 255);
             break;
         case '#':
             SDL_SetRenderDrawColor(this->renderer, 0, 0, 255, 255);
             break;
-        case 'S':
-            SDL_SetRenderDrawColor(this->renderer, 0, 0, 255, 255);
+        case 'G':
+            SDL_SetRenderDrawColor(this->renderer, 0, 255, 0, 255);
             break;
+        default:
+            return;
     }
-
     SDL_RenderFillRect(this->renderer, &rect);
 }
-
 
 void Display::SDL2Window::display()
 {
@@ -105,13 +99,11 @@ void Display::SDL2Window::display()
 void Display::SDL2Window::close()
 {
     this->clear();
-    if (this->renderer != nullptr)
-    {
+    if (this->renderer != nullptr) {
         SDL_DestroyRenderer(this->renderer);
         this->renderer = nullptr;
     }
-    if (this->window != nullptr)
-    {
+    if (this->window != nullptr) {
         SDL_DestroyWindow(this->window);
         this->window = nullptr;
     }
