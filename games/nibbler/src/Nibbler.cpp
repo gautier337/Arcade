@@ -16,12 +16,10 @@
 
 Nibbler::Nibbler()
 {
-    std::cout << "Nibbler constructor called" << std::endl;
 }
 
 Nibbler::~Nibbler()
 {
-    std::cout << "Nibbler game destroyed" << std::endl;
 }
 
 std::pair<int, int> Nibbler::find_Nibbler_position(const std::vector<std::string> &map)
@@ -250,7 +248,6 @@ void Nibbler::change_windows()
 void Nibbler::stop()
 {
     _window->close();
-    std::cout << "Nibbler game stopped" << std::endl;
 }
 
 extern "C" std::unique_ptr<IGameModule> createGame() {

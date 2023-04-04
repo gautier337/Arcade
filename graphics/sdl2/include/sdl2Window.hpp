@@ -37,6 +37,7 @@ namespace Display {
             void draw() override;
             void display() override;
             void close() override;
+            void drawCharacter(int x, int y, char character);
         private:
             SDL_Window *window;
             SDL_Renderer *renderer;
@@ -44,6 +45,5 @@ namespace Display {
             int width;
             int height;
             int framerateLimit;
-            void drawCharacter(int x, int y, char character);
     };
 }

@@ -36,12 +36,12 @@ namespace Display {
             void draw() override;
             void display() override;
             void close() override;
+            void drawCharacter(int x, int y, char character);
         private:
             WINDOW *window;
-            std::string title;
+            std::string _title;
             int width;
             int height;
             int framerateLimit;
-            void drawCharacter(int x, int y, char character);
     };
 }

@@ -52,14 +52,11 @@ int main(int argc, char **argv)
     std::unique_ptr<Display::IWindow> argv_one_display_module = create_display_module(argv_one_library_dynamic);
     std::unique_ptr<Display::IWindow> ncurses_display_module = create_display_module(ncurses_library_dynamic);
 
-    std::vector<std::unique_ptr<Display::IWindow>> displayModules;
-    displayModules.push_back(std::move(argv_one_display_module));
-    displayModules.push_back(std::move(ncurses_display_module));
-
     std::vector<std::string> games = {"lib/arcade_snake.so", "lib/arcade_nibbler.so"};
 
     typedef std::unique_ptr<Display::IClock> (*CreateClockModuleFunction)();
-    CreateClockModuleFunction createClockModule = reinterpret_cast<CreateClockModuleFunction>(argv_one_library_dynamic.getSymbol("createClock"));
+    CreateClockModuleFunction createClockModule =
+        reinterpret_cast<CreateClockModuleFunction>(argv_one_library_dynamic.getSymbol("createClock"));
 
     if (!createClockModule)
         return 84;
@@ -70,24 +67,24 @@ int main(int argc, char **argv)
     int startX = 0;
     size_t gameIndex = 0;
 
-    displayModules[0]->create("Menu", 60, 1920, 1080);
+    argv_one_display_module->create("Menu", 60, 1920, 1080);
     while (isRunning) {
         if (clockModule != nullptr && clockModule->getElapsedTime() > 1000) {
-            displayModules[0]->clear();
+            argv_one_display_module->clear();
             for (size_t i = 0; i < games.size(); ++i) {
                 startX = 5;
                 for (size_t j = 0; j < games[i].length(); ++j)
-                    displayModules[0]->drawCharacter(startX + j, i, games[i][j]);
+                    argv_one_display_module->drawCharacter(startX + j, i, games[i][j]);
                 if (i == gameIndex) {
-                    displayModules[0]->drawCharacter(startX - 2, i, '-');
-                    displayModules[0]->drawCharacter(startX - 2, i, '>');
+                    argv_one_display_module->drawCharacter(startX - 2, i, '-');
+                    argv_one_display_module->drawCharacter(startX - 2, i, '>');
                 }
             }
-            displayModules[0]->display();
+            argv_one_display_module->display();
             clockModule->restart();
         }
 
-        Display::KeyType event = displayModules[0]->getEvent();
+        Display::KeyType event = argv_one_display_module->getEvent();
 
         if (event == Display::KeyType::Z) {
             if (gameIndex > 0) {
@@ -109,23 +106,26 @@ int main(int argc, char **argv)
             if (!createGameModule)
                 return 84;
 
-            std::unique_ptr<IGameModule> gameModule = createGameModule();
-            std::unique_ptr<Display::IWindow> ncurses_display_module = create_display_module(ncurses_library_dynamic);
-            std::unique_ptr<Display::IWindow> sdl2_display_module = create_display_module(sdl2_library_dynamic);
-            std::unique_ptr<Display::IWindow> sfml_display_module = create_display_module(sfml_library_dynamic);
+            auto gameModule = createGameModule();
+            auto ncurses_display_module = create_display_module(ncurses_library_dynamic);
+            auto sdl2_display_module = create_display_module(sdl2_library_dynamic);
+            auto sfml_display_module = create_display_module(sfml_library_dynamic);
 
             std::vector<std::unique_ptr<Display::IWindow>> new_display_module_vector;
             new_display_module_vector.push_back(std::move(ncurses_display_module));
             new_display_module_vector.push_back(std::move(sdl2_display_module));
             new_display_module_vector.push_back(std::move(sfml_display_module));
 
-            displayModules[0]->clear();
-            displayModules[0]->close();
+            argv_one_display_module->clear();
+            argv_one_display_module->close();
+
             gameModule->init(new_display_module_vector);
-            displayModules[0]->create("Menu", 60, 1920, 1080);
+
+            argv_one_display_module->create("Menu", 60, 1920, 1080);
         } else if (event == Display::KeyType::X) {
             isRunning = false;
         }
     }
+    std::cout << "fin du programme" << std::endl;
     return 0;
 }
