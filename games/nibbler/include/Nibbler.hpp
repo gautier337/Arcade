@@ -24,6 +24,7 @@ class Nibbler : public IGameModule {
         void stop() override;
     private:
         std::unique_ptr<Display::IWindow> _window;
+        std::vector<std::unique_ptr<Display::IWindow>> _windows;
         std::vector<std::string> load_map();
         std::pair<int, int> find_Nibbler_position(const std::vector<std::string> &map);
         std::vector<std::string> _map;
@@ -34,4 +35,6 @@ class Nibbler : public IGameModule {
         bool check_self_collision(int row, int col);
         int _score;
         void drawScore();
+        void change_windows();
+        int _window_index = 0;
 };

@@ -37,4 +37,5 @@ class Snake : public IGameModule {
         int _score;
         void drawScore();
         void change_windows();
+        int _window_index = 0;
 };

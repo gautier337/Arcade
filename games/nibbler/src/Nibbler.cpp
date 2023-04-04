@@ -218,6 +218,8 @@ void Nibbler::updateGame()
             _current_direction = "LEFT";
         if (key == Display::KeyType::D)
             _current_direction = "RIGHT";
+        if (key == Display::KeyType::P)
+            change_windows();
         collision = moveNibbler(_current_direction);
         for (size_t i = 0; i != _map.size(); i++)
             for (size_t j = 0; j != _map[i].length(); j++)
@@ -230,6 +232,18 @@ void Nibbler::updateGame()
             std::this_thread::sleep_for(delay - elapsed);
     }
     stop();
+}
+
+void Nibbler::change_windows()
+{
+    if (!_windows[_window_index + 1]) {
+        _window_index = 0;
+    } else
+        _window_index++;
+    _window->close();
+    _window = nullptr;
+    _window = std::move(_windows[_window_index]);
+    _window->create("Snake", 60, 1920, 1080);
 }
 
 void Nibbler::stop()
