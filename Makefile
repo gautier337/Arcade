@@ -15,7 +15,7 @@ games:
 	mkdir -p lib
 	$(MAKE) -C games
 
-graphics:
+graphicals:
 	mkdir -p lib
 	$(MAKE) -C graphics
 
