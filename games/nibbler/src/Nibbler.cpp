@@ -61,60 +61,48 @@ std::vector<std::string> Nibbler::load_map()
 
 bool Nibbler::bounce_when_touch_wall(const std::vector<std::string> &map, size_t row, size_t col)
 {
-    // top right corner
     if (map[row - 1][col] == '#' && map[row][col + 1] == '#' && _current_direction == "UP") {
         _current_direction = "LEFT";
         return false;
     }
-    // specific
     if (map[row - 1][col] == '#' && map[row][col + 1] == '#' && _current_direction == "RIGHT") {
         _current_direction = "DOWN";
         return false;
     }
-    // specific
     if (map[row + 1][col] == '#' && map[row][col + 1] == '#' && _current_direction == "RIGHT") {
         _current_direction = "UP";
         return false;
     }
-    // specific
     if (map[row + 1][col] == '#' && map[row][col + 1] == '#' && _current_direction == "DOWN") {
         _current_direction = "LEFT";
         return false;
     }
-    // specific
     if (map[row - 1][col] == '#' && map[row][col - 1] == '#' && _current_direction == "UP") {
         _current_direction = "RIGHT";
         return false;
     }
-    // specific
     if (map[row][col - 1] == '#' && map[row + 1][col] == '#' && _current_direction == "LEFT") {
         _current_direction = "UP";
         return false;
     }
-    //check tunnel horizontal
     if (map[row - 1][col] == '#' && map[row + 1][col] == '#') {
         return false;
     }
-    // check tunnel vertical
     if (map[row][col - 1] == '#' && map[row][col + 1] == '#') {
         return false;
     }
-    //right wall
     if (map[row][col + 1] == '#' && _current_direction == "RIGHT") {
         _current_direction = "UP";
         return false;
     }
-    //bottom wall
     if (map[row + 1][col] == '#' && _current_direction == "DOWN") {
         _current_direction = "RIGHT";
         return false;
     }
-    //left wall
     if (map[row][col - 1] == '#' && _current_direction == "LEFT") {
         _current_direction = "DOWN";
         return false;
     }
-    //top wall
     if (map[row - 1][col] == '#' && _current_direction == "UP") {
         _current_direction = "LEFT";
         return false;
