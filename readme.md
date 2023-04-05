@@ -65,3 +65,73 @@
 
     Snake (arcade_snake.so)
     Nibbler (arcade_nibbler.so)
+
+### Project made by:
+
+<div align="center" href="">
+<table>
+    <td align="center">
+        <a href="https://github.com/Hugo-code-dev">
+            <img src="https://avatars.githubusercontent.com/Hugo-code-dev" width="150px;" alt="Hugo DUBOIS profile picture"/>
+            <br />
+            <b>Hugo DUBOIS</b>
+        </a>
+        <br />
+        <a href="mailto:hugo.dubois@epitech.eu">📧</a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/gautier337">
+            <img src="https://avatars.githubusercontent.com/gautier337" width="150px;" alt="Gautier BONHUR profile picture"/>
+            <br />
+            <b>Gautier BONHUR</b>
+        </a>
+        <br />
+        <a href="mailto:hugo.dubois@epitech.eu">📧</a>
+    </td>
+</table>
+
+</div>
+
+### In collaboration with:
+
+<div align="center" href="">
+<table>
+    <td align="center">
+        <a href="https://github.com/X-VINCENT">
+            <img src="https://avatars.githubusercontent.com/X-VINCENT" width="100px;" alt="Xavier VINCENT profile picture"/>
+            <br />
+            <b>Xavier VINCENT</b>
+        </a>
+        <br />
+        <div>
+            <a href="https://github.com/EpitechPromo2026/B-OOP-400-BDX-4-1-arcade-max.peixoto/commits?author=X-VINCENT" title="Code">💻</a>
+            <a href="mailto:xavier.vincent@epitech.eu">📧</a>
+        </div>
+    </td>
+    <td align="center">
+        <a href="https://github.com/MaxPeix">
+            <img src="https://avatars.githubusercontent.com/MaxPeix" width="100px;" alt="Max PEIXOTO profile picture"/>
+            <br />
+            <b>Max PEIXOTO</b>
+        </a>
+        <br />
+        <div>
+            <a href="https://github.com/EpitechPromo2026/B-OOP-400-BDX-4-1-arcade-max.peixoto/commits?author=MaxPeix" title="Code">💻</a>
+            <a href="mailto:max.peixoto.chhang@epitech.eu">📧</a>
+        </div>
+    </td>
+    <td align="center">
+        <a href="https://github.com/EpiDoubleHaxe">
+            <img src="https://avatars.githubusercontent.com/EpiDoubleHaxe" width="100px;" alt="Edouard CHHANG profile picture"/>
+            <br />
+            <b>Edouard CHHANG</b>
+        </a>
+        <br />
+        <div>
+            <a href="https://github.com/EpitechPromo2026/B-OOP-400-BDX-4-1-arcade-max.peixoto/commits?author=EpiDoubleHaxe" title="Code">💻</a>
+            <a href="mailto:edouard.chhang@epitech.eu">📧</a>
+        </div>
+    </td>
+</table>
+
+</div>
