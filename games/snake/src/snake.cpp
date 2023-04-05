@@ -98,8 +98,10 @@ void Snake::init(std::vector<std::unique_ptr<Display::IWindow>> &windows)
 
 bool Snake::moveSnake(std::string direction)
 {
-    int row_offset = 0;
-    int col_offset = 0;
+    size_t row_offset = 0;
+    size_t col_offset = 0;
+    size_t new_row = 0;
+    size_t new_col = 0;
 
     if (direction == "UP")
         row_offset = -1;
@@ -110,8 +112,8 @@ bool Snake::moveSnake(std::string direction)
     else if (direction == "RIGHT")
         col_offset = 1;
 
-    int new_row = _snake_body.front().first + row_offset;
-    int new_col = _snake_body.front().second + col_offset;
+    new_row = _snake_body.front().first + row_offset;
+    new_col = _snake_body.front().second + col_offset;
 
     if (check_wall_collision(_map, new_row, new_col) || check_self_collision(new_row, new_col))
         return true;

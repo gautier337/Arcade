@@ -157,10 +157,10 @@ void Nibbler::init(std::vector<std::unique_ptr<Display::IWindow>> &windows)
 
 bool Nibbler::moveNibbler(std::string direction)
 {
-    int row_offset = 0;
-    int col_offset = 0;
-    int new_row = 0;
-    int new_col = 0;
+    size_t row_offset = 0;
+    size_t col_offset = 0;
+    size_t new_row = 0;
+    size_t new_col = 0;
 
     if (direction == "UP")
         row_offset = -1;
