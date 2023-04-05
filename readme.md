@@ -1,8 +1,8 @@
-Arcade - Plateforme de jeux rétro
+Arcade - Plateforme de jeux
 
 Description:
 
-    Arcade est une plateforme de jeux rétro qui permet à l'utilisateur de choisir un jeu depuis un menu.
+    Arcade est une plateforme de jeux qui permet à l'utilisateur de choisir un jeu depuis un menu.
     Le projet est développé en C++ et utilise des bibliothèques dynamiques pour les jeux et les interfaces graphiques.
 
 Configuration requise:
