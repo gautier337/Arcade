@@ -21,6 +21,7 @@ Utilisation
 ./arcade ./lib/arcade_sfml.so
 
 Fonctionnalités
+
     Choix du jeu parmi les jeux disponibles dans le répertoire ./lib/
     Choix de la bibliothèque graphique parmi celles disponibles dans le répertoire ./lib/
     Affichage des scores
@@ -28,11 +29,21 @@ Fonctionnalités
     Changement de la bibliothèque graphique à la volée
     Mappage des touches pour différentes actions (changer de jeu, redémarrer le jeu, revenir au menu, quitter)
     Bibliothèques graphiques
+
     Le projet inclut les bibliothèques graphiques suivantes :
+
         SFML (arcade_sfml.so)
         nCurses (arcade_ncurses.so)
         SDL2 (arcade_sdl2.so)
         Jeux inclus
+
+    Voici la liste des touches:
+
+        Touche 'E' pour lancer un jeu depuis le menu
+        Touche 'R' pour redémarrer le jeu
+        Touche 'X' pour revenir au menu ou quitter le menu
+        Touche 'P' pour changer de librairie graphique pendant le jeu ou le menu
+        Touche 'Q' pour quitter le programme depuis le jeu sans revenir au menu
 
 Le projet inclut les jeux suivants :
 
