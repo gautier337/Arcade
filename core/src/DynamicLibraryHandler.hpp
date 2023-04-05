@@ -15,8 +15,8 @@ class DynamicLibraryHandler {
     public:
         DynamicLibraryHandler();
         ~DynamicLibraryHandler();
-        bool loadLibrary(const std::string& path);
-        void *getSymbol(const std::string& name);
+        bool loadLibrary(const std::string &path);
+        void *getSymbol(const std::string &name);
 
     private:
         void closeLibrary();

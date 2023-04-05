@@ -18,7 +18,7 @@
 #include "../../graphics/ncurses/include/NCursesWindow.hpp"
 #include "DynamicLibraryHandler.hpp"
 
-DynamicLibraryHandler load_dynamic_library(const std::string& graphicsLibraryPath)
+DynamicLibraryHandler load_dynamic_library(const std::string &graphicsLibraryPath)
 {
     DynamicLibraryHandler graphicsLibraryHandler;
     if (!graphicsLibraryHandler.loadLibrary(graphicsLibraryPath))
@@ -26,7 +26,7 @@ DynamicLibraryHandler load_dynamic_library(const std::string& graphicsLibraryPat
     return graphicsLibraryHandler;
 }
 
-std::unique_ptr<Display::IWindow> create_display_module(DynamicLibraryHandler& graphicsLibraryHandler)
+std::unique_ptr<Display::IWindow> create_display_module(DynamicLibraryHandler &graphicsLibraryHandler)
 {
     typedef std::unique_ptr<Display::IWindow> (*CreateDisplayModuleFunction)();
     CreateDisplayModuleFunction display_module =
@@ -37,12 +37,12 @@ std::unique_ptr<Display::IWindow> create_display_module(DynamicLibraryHandler& g
 }
 
 void launchGame(int idx_menu_graph,
-                const std::string& gamePath,
+                const std::string &gamePath,
                 std::vector<std::unique_ptr<Display::IWindow>> &display_module_vector_menu,
-                DynamicLibraryHandler& argv_one_library_dynamic,
-                DynamicLibraryHandler& ncurses_library_dynamic,
-                DynamicLibraryHandler& sdl2_library_dynamic,
-                DynamicLibraryHandler& sfml_library_dynamic)
+                DynamicLibraryHandler &argv_one_library_dynamic,
+                DynamicLibraryHandler &ncurses_library_dynamic,
+                DynamicLibraryHandler &sdl2_library_dynamic,
+                DynamicLibraryHandler &sfml_library_dynamic)
 {
     DynamicLibraryHandler gameLibraryHandler;
 
