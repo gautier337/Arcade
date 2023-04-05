@@ -12,8 +12,6 @@
 #include <filesystem>
 #include "../../graphics/include/IWindow.hpp"
 #include "../../graphics/include/IClock.hpp"
-#include "../../graphics/include/ISprite.hpp"
-#include "../../graphics/include/ITexture.hpp"
 #include "../../games/include/IGameModule.hpp"
 #include "../../graphics/ncurses/include/NCursesWindow.hpp"
 #include "DynamicLibraryHandler.hpp"
@@ -101,6 +99,7 @@ int main(int argc, char **argv)
         create_display_module(sfml_library_dynamic);
 
     std::vector<std::string> games = {"lib/arcade_snake.so", "lib/arcade_nibbler.so"};
+    std::vector<std::string> graphicals_lib = {"lib/arcade_sfml.so", "lib/arcade_ncurses.so", "lib/arcade_sdl2.so"};
     std::vector<std::unique_ptr<Display::IWindow>> display_module_vector_menu;
 
     display_module_vector_menu.push_back(std::move(argv_one_display_module));
@@ -119,9 +118,12 @@ int main(int argc, char **argv)
     std::unique_ptr<Display::IClock> clockModule = createClockModule();
 
     int idx_menu_graph = 0;
+    bool allow_change_pseudo = false;
     bool isRunning = true;
     int startX = 0;
     size_t gameIndex = 0;
+    std::string pseudo = "";
+    std::string username = "Username: ";
 
     display_module_vector_menu[idx_menu_graph]->create("Menu", 60, 1920, 1080);
     while (isRunning) {
@@ -136,12 +138,81 @@ int main(int argc, char **argv)
                     display_module_vector_menu[idx_menu_graph]->drawCharacter(startX - 2, i, '>');
                 }
             }
+            for (size_t j = 0; j < username.length(); ++j)
+                    display_module_vector_menu[idx_menu_graph]->drawCharacter(40 + j, 0, username[j]);
+            for (size_t j = 0; j < pseudo.length(); ++j)
+                display_module_vector_menu[idx_menu_graph]->drawCharacter(50 + j, 0, pseudo[j]);
+            for (size_t i = 0; i < graphicals_lib.size(); ++i) {
+                for (size_t j = 0; j < graphicals_lib[i].length(); ++j)
+                    display_module_vector_menu[idx_menu_graph]->drawCharacter(5 + j, i + 5, graphicals_lib[i][j]);
+            }
             display_module_vector_menu[idx_menu_graph]->display();
             clockModule->restart();
         }
 
         Display::KeyType event = display_module_vector_menu[idx_menu_graph]->getEvent();
 
+        if (allow_change_pseudo && event == Display::KeyType::Backspace) {
+            if (pseudo.length() > 0)
+                pseudo.pop_back();
+        }
+        if (allow_change_pseudo && event != Display::KeyType::Unknown) {
+            if (event == Display::KeyType::A)
+                pseudo += "a";
+            if (event == Display::KeyType::B)
+                pseudo += "b";
+            if (event == Display::KeyType::C)
+                pseudo += "c";
+            if (event == Display::KeyType::D)
+                pseudo += "d";
+            if (event == Display::KeyType::E)
+                pseudo += "e";
+            if (event == Display::KeyType::F)
+                pseudo += "f";
+            if (event == Display::KeyType::G)
+                pseudo += "g";
+            if (event == Display::KeyType::H)
+                pseudo += "h";
+            if (event == Display::KeyType::I)
+                pseudo += "i";
+            if (event == Display::KeyType::J)
+                pseudo += "j";
+            if (event == Display::KeyType::K)
+                pseudo += "k";
+            if (event == Display::KeyType::L)
+                pseudo += "l";
+            if (event == Display::KeyType::M)
+                pseudo += "m";
+            if (event == Display::KeyType::N)
+                pseudo += "n";
+            if (event == Display::KeyType::P)
+                pseudo += "p";
+            if (event == Display::KeyType::Q)
+                pseudo += "q";
+            if (event == Display::KeyType::R)
+                pseudo += "r";
+            if (event == Display::KeyType::S)
+                pseudo += "s";
+            if (event == Display::KeyType::T)
+                pseudo += "t";
+            if (event == Display::KeyType::U)
+                pseudo += "u";
+            if (event == Display::KeyType::V)
+                pseudo += "v";
+            if (event == Display::KeyType::W)
+                pseudo += "w";
+            if (event == Display::KeyType::X)
+                pseudo += "x";
+            if (event == Display::KeyType::Y)
+                pseudo += "y";
+            if (event == Display::KeyType::Z)
+                pseudo += "z";
+        }
+
+        if (event == Display::KeyType::O)
+            allow_change_pseudo = !allow_change_pseudo;
+        if (allow_change_pseudo == true)
+            continue;
         if (event == Display::KeyType::Z) {
             if (gameIndex > 0) {
                 --gameIndex;
@@ -160,6 +231,7 @@ int main(int argc, char **argv)
             }
             display_module_vector_menu[idx_menu_graph]->create("Menu", 60, 1920, 1080);
         } else if (event == Display::KeyType::E) {
+            allow_change_pseudo = false;
             launchGame(idx_menu_graph, games[gameIndex],
                 display_module_vector_menu,
                 argv_one_library_dynamic,
@@ -168,6 +240,8 @@ int main(int argc, char **argv)
                 sfml_library_dynamic);
         } else if (event == Display::KeyType::X) {
             isRunning = false;
+            display_module_vector_menu[idx_menu_graph]->close();
+            exit(0);
         }
     }
     return 0;

@@ -9,7 +9,6 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "../../include/ISprite.hpp"
 #include "../../include/IEvent.hpp"
 #include "../../include/IWindow.hpp"
 

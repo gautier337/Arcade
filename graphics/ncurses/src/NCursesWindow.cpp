@@ -6,6 +6,7 @@
 */
 
 #include "../include/NCursesWindow.hpp"
+#include <curses.h>
 
 void Display::NCursesWindow::create(std::string const &title, int framerateLimit, int width, int height)
 {
@@ -37,24 +38,62 @@ Display::KeyType Display::NCursesWindow::getEvent()
 {
     int key = getch();
     if (key != ERR) {
-        if (key == 'x' || key == 'X') {
-            close();
+        if (key == 'x' || key == 'X')
             return Display::KeyType::X;
-        }
-        if (key == 'Z' || key == 'z')
-            return Display::KeyType::Z;
-        if (key == 'S' || key == 's')
-            return Display::KeyType::S;
-        if (key == 'Q' || key == 'q')
-            return Display::KeyType::Q;
-        if (key == 'D' || key == 'd')
+        if (key == 'a' || key == 'A')
+            return Display::KeyType::A;
+        if (key == 'b' || key == 'B')
+            return Display::KeyType::B;
+        if (key == 'c' || key == 'C')
+            return Display::KeyType::C;
+        if (key == 'd' || key == 'D')
             return Display::KeyType::D;
-        if (key == 'E' || key == 'e')
+        if (key == 'e' || key == 'E')
             return Display::KeyType::E;
-        if (key == 'P' || key == 'p')
+        if (key == 'f' || key == 'F')
+            return Display::KeyType::F;
+        if (key == 'g' || key == 'G')
+            return Display::KeyType::G;
+        if (key == 'h' || key == 'H')
+            return Display::KeyType::H;
+        if (key == 'i' || key == 'I')
+            return Display::KeyType::I;
+        if (key == 'j' || key == 'J')
+            return Display::KeyType::J;
+        if (key == 'k' || key == 'K')
+            return Display::KeyType::K;
+        if (key == 'l' || key == 'L')
+            return Display::KeyType::L;
+        if (key == 'm' || key == 'M')   
+            return Display::KeyType::M;
+        if (key == 'n' || key == 'N')   
+            return Display::KeyType::N;
+        if (key == 'o' || key == 'O')
+            return Display::KeyType::O;
+        if (key == 'p' || key == 'P')
             return Display::KeyType::P;
-        if (key == 'R' || key == 'r')
+        if (key == 'q' || key == 'Q')
+            return Display::KeyType::Q;
+        if (key == 'r' || key == 'R')
             return Display::KeyType::R;
+        if (key == 's' || key == 'S')
+            return Display::KeyType::S;
+        if (key == 't' || key == 'T')
+            return Display::KeyType::T;
+        if (key == 'u' || key == 'U')
+            return Display::KeyType::U;
+        if (key == 'v' || key == 'V')
+            return Display::KeyType::V;
+        if (key == 'w' || key == 'W')
+            return Display::KeyType::W;
+        if (key == 'x' || key == 'X')
+            return Display::KeyType::X;
+        if (key == 'y' || key == 'Y')
+            return Display::KeyType::Y;
+        if (key == 'z' || key == 'Z')
+            return Display::KeyType::Z;
+        if (key == KEY_BACKSPACE)
+            return Display::KeyType::Backspace;
     }
     return Display::KeyType::Unknown;
 }

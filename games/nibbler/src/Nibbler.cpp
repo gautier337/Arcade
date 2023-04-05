@@ -203,8 +203,10 @@ void Nibbler::updateGame()
             _map[part.first][part.second] = 'P';
 
         Display::KeyType key = _window->getEvent();
-        if (key == Display::KeyType::X || _score == 19)
+        if (key == Display::KeyType::X || _score == 19) {
+            _window->close();
             break;
+        }
         if (key == Display::KeyType::Z)
             _current_direction = "UP";
         if (key == Display::KeyType::S)
@@ -217,6 +219,8 @@ void Nibbler::updateGame()
             change_windows();
         if (key == Display::KeyType::R)
             set_value_game();
+        if (key == Display::KeyType::L)
+            exit(0);
         collision = moveNibbler(_current_direction);
         for (size_t i = 0; i != _map.size(); i++)
             for (size_t j = 0; j != _map[i].length(); j++)

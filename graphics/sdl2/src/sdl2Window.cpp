@@ -40,27 +40,65 @@ Display::KeyType Display::SDL2Window::getEvent()
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
         case SDL_QUIT:
-            this->close();
             return Display::KeyType::X;
         case SDL_KEYDOWN:
             switch (event.key.keysym.sym) {
-                case SDLK_z:
-                    return Display::KeyType::Z;
-                case SDLK_s:
-                    return Display::KeyType::S;
-                case SDLK_q:
-                    return Display::KeyType::Q;
+                case SDLK_a:
+                    return Display::KeyType::A;
+                case SDLK_b:
+                    return Display::KeyType::B;
+                case SDLK_c:
+                    return Display::KeyType::C;
                 case SDLK_d:
                     return Display::KeyType::D;
                 case SDLK_e:
                     return Display::KeyType::E;
+                case SDLK_f:
+                    return Display::KeyType::F;
+                case SDLK_g:
+                    return Display::KeyType::G;
+                case SDLK_h:
+                    return Display::KeyType::H;
+                case SDLK_i:
+                    return Display::KeyType::I;
+                case SDLK_j:
+                    return Display::KeyType::J;
+                case SDLK_k:
+                    return Display::KeyType::K;
+                case SDLK_l:
+                    return Display::KeyType::L;
+                case SDLK_m:
+                    return Display::KeyType::M;
+                case SDLK_n:
+                    return Display::KeyType::N;
+                case SDLK_o:
+                    return Display::KeyType::O;
                 case SDLK_p:
                     return Display::KeyType::P;
+                case SDLK_q:
+                    return Display::KeyType::Q;
                 case SDLK_r:
                     return Display::KeyType::R;
+                case SDLK_s:
+                    return Display::KeyType::S;
+                case SDLK_t:
+                    return Display::KeyType::T;
+                case SDLK_u:
+                    return Display::KeyType::U;
+                case SDLK_v:
+                    return Display::KeyType::V;
+                case SDLK_w:
+                    return Display::KeyType::W;
                 case SDLK_x:
-                    this->close();
                     return Display::KeyType::X;
+                case SDLK_y:
+                    return Display::KeyType::Y;
+                case SDLK_z:
+                    return Display::KeyType::Z;
+                case SDLK_BACKSPACE:
+                    return Display::KeyType::Backspace;
+                default:
+                    break;
             }
             break;
         }

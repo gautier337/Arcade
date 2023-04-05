@@ -1,52 +1,67 @@
-Arcade - Plateforme de jeux
+# Arcade - Games platform
 
-Description:
+# Description:
 
-    Arcade est une plateforme de jeux qui permet à l'utilisateur de choisir un jeu depuis un menu.
-    Le projet est développé en C++ et utilise des bibliothèques dynamiques pour les jeux et les interfaces graphiques.
+    Arcade is a game platform that allows the user to choose a game from a menu.
+    The project is developed in C++ and uses dynamic libraries for games and graphical interfaces.
 
-Configuration requise:
+# Required configuration:
 
-    Compilateur : g++ (supportant le standard C++11)
-    Bibliothèques : SFML, nCurses, SDL2
+    Compiler: g++ (supporting the C++11 standard)
+    Libraries: SFML, Ncurses, SDL2
 
-Pour compiler le projet, utilisez le makefile :
+# To compile the project, use the makefile:
 
-    Makefile
-        Exécutez la commande suivante dans le terminal :
+    ## Makefile
+        Run the following command in the terminal:
         make
 
-Utilisation:
+# Usage:
 
-    Lancez le programme en spécifiant la bibliothèque graphique à utiliser au démarrage. Par exemple:
+    Launch the program specifying the graphics library to use at startup. For example:
         ./arcade ./lib/arcade_sfml.so
 
-Fonctionnalités:
+# Features:
 
-    - Choix du jeu parmi les jeux disponibles dans le répertoire ./lib/
-    - Choix de la bibliothèque graphique parmi celles disponibles dans le répertoire ./lib/
-    - Affichage des scores
-    - Entrée du nom d'utilisateur
-    - Changement de la bibliothèque graphique à la volée
-    - Mappage des touches pour différentes actions (changer de jeu, redémarrer le jeu, revenir au menu, quitter)
-    - Bibliothèques graphiques
+    - Choice of the game among the games available in the directory ./lib/
+    - Choice of the graphic library among those available in the ./lib/ directory
+    - Display of scores
+    - Username entry
+    - Changing the graphics library on the fly
+    - Key mapping for different actions (switch game, restart game, return to menu, exit)
+    - Graphic libraries
 
-    Le projet inclut les bibliothèques graphiques suivantes :
+    The project includes the following graphics libraries:
 
         SFML (arcade_sfml.so)
         nCurses (arcade_ncurses.so)
         SDL2 (arcade_sdl2.so)
-        Jeux inclus
+        Games included
 
-    Voici la liste des touches:
+    Here is the list of keys in the menu:
 
-        Touche 'E' pour lancer un jeu depuis le menu
-        Touche 'R' pour redémarrer le jeu
-        Touche 'X' pour revenir au menu ou quitter le menu
-        Touche 'P' pour changer de librairie graphique pendant le jeu ou le menu
-        Touche 'Q' pour quitter le programme depuis le jeu sans revenir au menu
+        When you get to the menu if you press 'O' keys on the keyboard
+        allow you to enter your nickname, if you press 'O' again
+        keys will have the following functions:
 
-Le projet inclut les jeux suivants :
+        'E' key to launch a game from the menu
+        'R' key to restart the game
+        'X' key to return to the menu or exit the menu
+        'P' key to change graphics library during game or menu
+        'Q' key to exit the program from the game without returning to the menu
+        'L' key to quit the program
+
+    Here is the list of keys in the game:
+
+        When you arrive in the game your control keys are as follows:
+
+        'Z' key to go up
+        'S' key to go down
+        'Q' key to go left
+        'D' key to go right
+        'L' key to quit the program
+
+# The project includes the following games:
 
     Snake (arcade_snake.so)
     Nibbler (arcade_nibbler.so)

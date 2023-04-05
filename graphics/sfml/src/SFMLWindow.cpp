@@ -52,29 +52,62 @@ Display::KeyType Display::SFMLWindow::getEvent()
 {
     sf::Event event;
     while (isOpen() && _window.pollEvent(event)) {
-        if (event.type == sf::Event::Closed) {
-            close();
-            return Display::KeyType::X;
-        }
         if (event.type == sf::Event::KeyPressed) {
             switch (event.key.code) {
             case sf::Keyboard::X:
-                close();
                 return Display::KeyType::X;
-            case sf::Keyboard::Z:
-                return Display::KeyType::Z;
-            case sf::Keyboard::S:
-                return Display::KeyType::S;
-            case sf::Keyboard::Q:
-                return Display::KeyType::Q;
+            case sf::Keyboard::A:
+                return Display::KeyType::A;
+            case sf::Keyboard::B:
+                return Display::KeyType::B;
+            case sf::Keyboard::C:
+                return Display::KeyType::C;
             case sf::Keyboard::D:
                 return Display::KeyType::D;
             case sf::Keyboard::E:
                 return Display::KeyType::E;
+            case sf::Keyboard::F:
+                return Display::KeyType::F;
+            case sf::Keyboard::G:
+                return Display::KeyType::G;
+            case sf::Keyboard::H:
+                return Display::KeyType::H;
+            case sf::Keyboard::I:
+                return Display::KeyType::I;
+            case sf::Keyboard::J:
+                return Display::KeyType::J;
+            case sf::Keyboard::K:
+                return Display::KeyType::K;
+            case sf::Keyboard::L:
+                return Display::KeyType::L;
+            case sf::Keyboard::M:
+                return Display::KeyType::M;
+            case sf::Keyboard::N:
+                return Display::KeyType::N;
+            case sf::Keyboard::O:
+                return Display::KeyType::O;
             case sf::Keyboard::P:
                 return Display::KeyType::P;
+            case sf::Keyboard::Q:
+                return Display::KeyType::Q;
             case sf::Keyboard::R:
                 return Display::KeyType::R;
+            case sf::Keyboard::S:
+                return Display::KeyType::S;
+            case sf::Keyboard::T:
+                return Display::KeyType::T;
+            case sf::Keyboard::U:
+                return Display::KeyType::U;
+            case sf::Keyboard::V:
+                return Display::KeyType::V;
+            case sf::Keyboard::W:
+                return Display::KeyType::W;
+            case sf::Keyboard::Y:
+                return Display::KeyType::Y;
+            case sf::Keyboard::Z:
+                return Display::KeyType::Z;
+            case sf::Keyboard::BackSpace:
+                return Display::KeyType::Backspace;
             default:
                 break;
             }

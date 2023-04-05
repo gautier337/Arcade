@@ -176,8 +176,10 @@ void Snake::updateGame()
             _map[part.first][part.second] = 'P';
 
         Display::KeyType key = _window->getEvent();
-        if (key == Display::KeyType::X)
+        if (key == Display::KeyType::X) {
+            _window->close();
             break;
+        }
         if (key == Display::KeyType::Z)
             _current_direction = "UP";
         if (key == Display::KeyType::S)
@@ -190,6 +192,8 @@ void Snake::updateGame()
             set_value_game();
         if (key == Display::KeyType::P)
             change_windows();
+        if (key == Display::KeyType::L)
+            exit(0);
         collision = moveSnake(_current_direction);
         for (size_t i = 0; i != _map.size(); i++)
             for (size_t j = 0; j != _map[i].length(); j++)

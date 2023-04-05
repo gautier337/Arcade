@@ -14,7 +14,6 @@
 #include <iostream>
 #include <fstream>
 #include <stdexcept>
-#include "../../include/ISprite.hpp"
 #include "../../include/IEvent.hpp"
 #include "../../include/IWindow.hpp"
 
